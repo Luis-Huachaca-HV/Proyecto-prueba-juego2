@@ -1,12 +1,14 @@
 import pygame
 import menu
-from menu import Menu,Creditos,Settings
+from menu import Menu, Creditos, Settings
 WIDTH = 844
 HEIGHT = 508
+
+
 def main():
     pygame.init()
-    screen = pygame.display.set_mode((WIDTH,HEIGHT))
-    FPS = 10#Frames per second
+    screen = pygame.display.set_mode((WIDTH, HEIGHT))
+    FPS = 10  # Frames per second
     clock = pygame.time.Clock()
     fase = 0
     menu = 0
@@ -27,7 +29,7 @@ def main():
         elif fase == creditos:
             clock.tick(10)
             pygame.display.flip()
-            f =  Creditos()#esta funcion imprime los nombres de los creadores
+            f = Creditos()  # esta funcion imprime los nombres de los creadores
             if f == 0:
                 fase = 0
         elif fase == settings:
@@ -40,12 +42,15 @@ def main():
             elif f == 2:
                 fase = 0
         elif fase == PACBOMBS:
-            #aca ejecutara el juego
+            # aca ejecutara el juego
             running = game.process_events()
             game.run_logic()
             game.display_frame(screen)
             clock.tick(10)
     pygame.quit()
+
+
 if __name__ == "__main__":
     main()
 
+a = 2
