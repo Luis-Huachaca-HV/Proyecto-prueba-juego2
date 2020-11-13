@@ -21,17 +21,19 @@ def Menu():
         fase = None
         Color = (234,123,111)
         TamanoFuente = 30
-        Fuente = "04B_30__.TTF"
+        Fuente = "Fuentes/Assasssins$.ttf"
         Tamano_display = (844,508)
         imagenboton=pygame.image.load("2.png").convert()
         imagenboton.set_colorkey(WHITE)
-        imagenfondo=pygame.image.load("SuperDodgeBall.jpg").convert()
+        screen_fondo = pygame.image.load("SuperDodgeBall.jpg")
         pantalla = pygame.display.set_mode(Tamano_display)
         pantalla.fill(BLACK)
+        pantalla.blit(screen_fondo,screen_fondo.get_rect())
 ##Titulo
-        Palabra=['PACBOMBS']
-        PosicionInicial=[(80,100)]
-        Palabrasf(Fuente,TamanoFuente,Palabra,Color,PosicionInicial,pantalla)
+        Palabra=['New Super World of Grand','Dodgeball Evil Creed','Offensive 64 Ultimate']
+        PosicionInicial=[(50,30),(50,70),(50,110)]
+        for i in Palabra:
+            Palabrasf(Fuente,TamanoFuente,Palabra,Color,PosicionInicial,pantalla)
 ##Boton
         Palabra=["Play","Credits","Settings"]
         PosicionInicial=[(120,200),(120,260),(120,320)]
@@ -63,7 +65,7 @@ def Creditos():
         ANY_COLOR = (0,0,0)
         Morado = (128,0,128)
         TamanoFuente = 20
-        screen_fondo = pygame.image.load("fondo menu.jpg")
+        screen_fondo = pygame.image.load("SuperDodgeBall.jpg")
         Fuente = "04B_30__.TTF"
         Tamano_display = (844,508)
         #imagenfondo = 
