@@ -25,7 +25,7 @@ def Menu():
         Tamano_display = (844,508)
         imagenboton=pygame.image.load("2.png").convert()
         imagenboton.set_colorkey(WHITE)
-        imagenfondo=pygame.image.load("menu_fondo.jpeg").convert()
+        imagenfondo=pygame.image.load("SuperDodgeBall.jpg").convert()
         pantalla = pygame.display.set_mode(Tamano_display)
         pantalla.fill(BLACK)
 ##Titulo
@@ -63,7 +63,7 @@ def Creditos():
         ANY_COLOR = (0,0,0)
         Morado = (128,0,128)
         TamanoFuente = 20
-        screen_fondo = pygame.image.load("menu_fondo.jpeg")
+        screen_fondo = pygame.image.load("fondo menu.jpg")
         Fuente = "04B_30__.TTF"
         Tamano_display = (844,508)
         #imagenfondo = 
@@ -95,10 +95,10 @@ def Settings():
         Color = (234,123,111)
         TamanoFuente = 30
         Fuente = "04B_30__.TTF"
-        Tamano_display = (833,508)
+        Tamano_display = (844,508)
         imagenboton=pygame.image.load("2.png").convert()
         imagenboton.set_colorkey(WHITE)
-        imagenfondo=pygame.image.load("menu_fondo.jpeg").convert()
+        imagenfondo=pygame.image.load("fondo menu.jpg").convert()
         pantalla = pygame.display.set_mode(Tamano_display)
         pantalla.fill(BLACK)
 ##Titulo
