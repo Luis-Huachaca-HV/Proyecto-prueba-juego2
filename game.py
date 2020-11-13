@@ -40,6 +40,7 @@ def main():
             elif f == 2:
                 fase = 0
         elif fase == PACBOMBS:
+            #aca ejecutara el juego
             running = game.process_events()
             game.run_logic()
             game.display_frame(screen)
