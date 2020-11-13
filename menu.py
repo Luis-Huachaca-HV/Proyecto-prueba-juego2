@@ -70,12 +70,12 @@ def Creditos():
         pantalla = pygame.display.set_mode(Tamano_display)
         pantalla.blit(screen_fondo,screen_fondo.get_rect())
 ##Titulo
-        Palabra=["Creditos"]
+        Palabra=["Créditos"]
         PosicionInicial=[(60,100)]
         Palabrasf(Fuente,TamanoFuente,Palabra,Morado,PosicionInicial,pantalla)
 ##Palabras
-        Palabra=["Desarrolladores:","Luis Huachaca","Angel Loayza","Ayrton Chávez"]
-        PosicionInicial=[(80,180),(100,230),(100,260),(100,290)]
+        Palabra=["Desarrolladores:","Luis Huachaca","Cesar Lengua","Ayrton Chávez","Rafael Ramirez"]
+        PosicionInicial=[(80,180),(100,230),(100,260),(100,290),(100,320)]
         for e in range(3):
             Palabrasf(Fuente,TamanoFuente,Palabra,Morado,PosicionInicial,pantalla)
 
@@ -95,7 +95,7 @@ def Settings():
         Color = (234,123,111)
         TamanoFuente = 30
         Fuente = "04B_30__.TTF"
-        Tamano_display = (1013,525)
+        Tamano_display = (833,508)
         imagenboton=pygame.image.load("2.png").convert()
         imagenboton.set_colorkey(WHITE)
         imagenfondo=pygame.image.load("menu_fondo.jpeg").convert()
