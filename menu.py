@@ -1,6 +1,5 @@
 import pygame
 #Definimos el estilo , color y pintamos la pantalla
-a = input("ingrese los nombres: ")
 def Palabrasf(Estilo,Tamano,Palabra,color,Pos,pantalla,anti=True):
         for e in range(len(Palabra)):
             PalabraFinal=pygame.font.Font(Estilo,Tamano)
