@@ -1,1 +1,5 @@
 Voy a necesitar el fondo de la imagen, fuente, la imagen del boton, imagen del icono, imagen de los personajes
+- Rafael se encarga de el enemigo, sus niveles y movimiento.
+- Ayrton va a hacer los sprites del personaje y modificar el mapa rectangulo blanco verde
+- Cesar hace las dimensiones y movimiento del personaje con sus restricciones
+- Yo pongo el menu listo, y ayudar a cesar.
