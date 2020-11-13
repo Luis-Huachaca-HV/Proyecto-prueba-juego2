@@ -1,6 +1,5 @@
 import pygame
 #Definimos el estilo , color y pintamos la pantalla
-a = input("ingrese los nombres: ")
 def Palabrasf(Estilo,Tamano,Palabra,color,Pos,pantalla,anti=True):
         for e in range(len(Palabra)):
             PalabraFinal=pygame.font.Font(Estilo,Tamano)
@@ -23,7 +22,7 @@ def Menu():
         Color = (234,123,111)
         TamanoFuente = 30
         Fuente = "04B_30__.TTF"
-        Tamano_display = (1013,525)
+        Tamano_display = (844,508)
         imagenboton=pygame.image.load("2.png").convert()
         imagenboton.set_colorkey(WHITE)
         imagenfondo=pygame.image.load("menu_fondo.jpeg").convert()
@@ -57,6 +56,7 @@ def Menu():
             if event.type== pygame.KEYDOWN:
                 if event.key==pygame.K_ESCAPE:
                     quit()
+
 #esta fase define los valores que estaran en creditos
 def Creditos():
         WHITE = (255,255,255) 
@@ -86,6 +86,7 @@ def Creditos():
             if event.type== pygame.KEYDOWN:
                 if event.key==pygame.K_ESCAPE:
                     return 0
+
 def Settings():
 ##Variables:
         BLACK =(0,0,0)
