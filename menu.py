@@ -21,7 +21,8 @@ def Menu():
         fase = None
         Color = (234,123,111)
         TamanoFuente = 30
-        Fuente = ["Texto/Assassin$.ttf",'Texto/LifeCraft_Font.ttf',"Texto/pricedown bl.ttf"]
+        Fuente = "Texto/Assassin$.ttf"
+        #,'Texto/LifeCraft_Font.ttf',"Texto/pricedown bl.ttf"]
         a=0
         Tamano_display = (844,508)
         imagenboton=pygame.image.load("2.png").convert()
@@ -34,7 +35,8 @@ def Menu():
         Palabra=['New Super World of Grand','Dodgeball Evil Creed','Offensive 64 Ultimate']
         PosicionInicial=[(50,30),(50,70),(50,110)]
         for i in Palabra:
-            Palabrasf(Fuente[0],TamanoFuente,Palabra,Color,PosicionInicial,pantalla)
+    
+            Palabrasf(Fuente,TamanoFuente,Palabra,Color,PosicionInicial,pantalla)
 ##Boton
         Palabra=["Play","Credits","Settings"]
         PosicionInicial=[(120,200),(120,260),(120,320)]
@@ -67,7 +69,7 @@ def Creditos():
         Morado = (128,0,128)
         TamanoFuente = 20
         screen_fondo = pygame.image.load("SuperDodgeBall.jpg")
-        Fuente = "04B_30__.TTF"
+        Fuente = "Texto/04B_30__.TTF"
         Tamano_display = (844,508)
         #imagenfondo = 
         pantalla = pygame.display.set_mode(Tamano_display)
@@ -97,7 +99,7 @@ def Settings():
         fase = None
         Color = (234,123,111)
         TamanoFuente = 30
-        Fuente = "04B_30__.TTF"
+        Fuente = "Texto/04B_30__.TTF"
         Tamano_display = (844,508)
         imagenboton=pygame.image.load("2.png").convert()
         imagenboton.set_colorkey(WHITE)
