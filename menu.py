@@ -27,16 +27,16 @@ def Menu():
         Tamano_display = (844,508)
         imagenboton=pygame.image.load("2.png").convert()
         imagenboton.set_colorkey(WHITE)
-        screen_fondo = pygame.image.load("SuperDodgeBall.jpg")
+        screen_fondo = pygame.image.load("menu fondo.png")
         pantalla = pygame.display.set_mode(Tamano_display)
         pantalla.fill(BLACK)
         pantalla.blit(screen_fondo,screen_fondo.get_rect())
 ##Titulo
-        Palabra=['New Super World of Grand','Dodgeball Evil Creed','Offensive 64 Ultimate']
-        PosicionInicial=[(50,30),(50,70),(50,110)]
-        for i in Palabra:
+        #Palabra=['New Super World of Grand','Dodgeball Evil Creed','Offensive 64 Ultimate']
+        #PosicionInicial=[(50,30),(50,70),(50,110)]
+        #for i in Palabra:
     
-            Palabrasf(Fuente,TamanoFuente,Palabra,Color,PosicionInicial,pantalla)
+        #    Palabrasf(Fuente,TamanoFuente,Palabra,Color,PosicionInicial,pantalla)
 ##Boton
         Palabra=["Play","Credits","Settings"]
         PosicionInicial=[(120,200),(120,260),(120,320)]
@@ -103,7 +103,7 @@ def Settings():
         Tamano_display = (844,508)
         imagenboton=pygame.image.load("2.png").convert()
         imagenboton.set_colorkey(WHITE)
-        imagenfondo=pygame.image.load("fondo menu.jpg").convert()
+        imagenfondo=pygame.image.load("menu fondo.png").convert()
         pantalla = pygame.display.set_mode(Tamano_display)
         pantalla.fill(BLACK)
 ##Titulo
