@@ -3,3 +3,7 @@ Voy a necesitar el fondo de la imagen, fuente, la imagen del boton, imagen del i
 - Ayrton va a hacer los sprites del personaje y modificar el mapa rectangulo blanco verde
 - Cesar hace las dimensiones y movimiento del personaje con sus restricciones
 - Yo pongo el menu listo, y ayudar a cesar.
+-
+15/11
+-EL TAmaño de la pelota es al menos un decimo del tamaño original.
+-   
