@@ -4,8 +4,8 @@ import pygame,random
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load("player_2.png").convert()
-        self.image.set_colorkey(White)
+        self.image = pygame.image.load("player_3.png").convert()
+        self.image.set_colorkey(Black)
         self.rect = self.image.get_rect()
         self.speed_x = 0
         self.speed_y = 0
@@ -20,7 +20,7 @@ class Player(pygame.sprite.Sprite):
 class Pelota(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load("pelota_5.png").convert()
+        self.image = pygame.image.load("pelota_1.png").convert()
         self.image.set_colorkey(Verde)
         self.rect = self.image.get_rect()
 
@@ -29,7 +29,7 @@ class Pelota(pygame.sprite.Sprite):
         
 Black = (0,0,0)
 White = (255,255,255)
-Verde = (128,255,0)
+Verde = (0,255,0)
 pygame.init()
 screen = pygame.display.set_mode([844,508])
 fondo = pygame.image.load("fondo_final.png").convert()
