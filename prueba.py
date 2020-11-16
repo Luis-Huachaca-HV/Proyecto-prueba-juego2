@@ -10,12 +10,13 @@ class Player(pygame.sprite.Sprite):
         self.speed_x = 0
         self.speed_y = 0
     
-    def changespeed(self, y):
-        self.speed_y += y        
+    def changespeed(self, y,x):
+        self.speed_y += y  
+        self.speed_x += x      
     
     def update(self):
         self.rect.y += self.speed_y 
-        player.rect.x = 210
+        self.rect.x += self.speed_x
 class Pelota(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
@@ -51,9 +52,13 @@ while not done:
         
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_UP:
-                player.changespeed(-3)
+                player.changespeed(-3,0)
+            if event.key == pygame.K_LEFT:
+                player.changespeed(0,-3)
             if event.key == pygame.K_DOWN:
-                player.changespeed(3)
+                player.changespeed(3,0)
+            if event.key == pygame.K_RIGHT:
+                player.changespeed(0,3)
             if event.key == pygame.K_SPACE:
                 pelota = Pelota()
                 pelota.rect.x = player.rect.x + 10
@@ -63,9 +68,13 @@ while not done:
                 pelota_list.add(pelota)
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_UP:
-                player.changespeed(3)
+                player.changespeed(3,0)
+            if event.key == pygame.K_LEFT:
+                player.changespeed(0,3)
             if event.key == pygame.K_DOWN:
-                player.changespeed(-3)
+                player.changespeed(-3,0)
+            if event.key == pygame.K_RIGHT:
+                player.changespeed(0,-3)
      
     all_sprite_list.update()
 
