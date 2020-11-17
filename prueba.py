@@ -38,7 +38,7 @@ done = False
 score = 0
 
 all_sprite_list = pygame.sprite.Group()
-meteor_list = pygame.sprite.Group()
+#meteor_list = pygame.sprite.Group()
 pelota_list = pygame.sprite.Group()
 
 
