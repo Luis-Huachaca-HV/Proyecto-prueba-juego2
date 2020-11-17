@@ -25,9 +25,9 @@ def Menu():
         #,'Texto/LifeCraft_Font.ttf',"Texto/pricedown bl.ttf"]
         a=0
         Tamano_display = (844,508)
-        imagenboton=pygame.image.load("2.png").convert()
+        imagenboton=pygame.image.load("img/2.png").convert()
         imagenboton.set_colorkey(WHITE)
-        screen_fondo = pygame.image.load("menu fondo.png")
+        screen_fondo = pygame.image.load("img/menu fondo.png")
         pantalla = pygame.display.set_mode(Tamano_display)
         pantalla.fill(BLACK)
         pantalla.blit(screen_fondo,screen_fondo.get_rect())
@@ -68,7 +68,7 @@ def Creditos():
         ANY_COLOR = (0,0,0)
         Morado = (128,0,128)
         TamanoFuente = 20
-        screen_fondo = pygame.image.load("SuperDodgeBall.jpg")
+        screen_fondo = pygame.image.load("img/SuperDodgeBall.jpg")
         Fuente = "Texto/04B_30__.TTF"
         Tamano_display = (844,508)
         #imagenfondo = 
@@ -101,9 +101,9 @@ def Settings():
         TamanoFuente = 30
         Fuente = "Texto/04B_30__.TTF"
         Tamano_display = (844,508)
-        imagenboton=pygame.image.load("2.png").convert()
+        imagenboton=pygame.image.load("img/2.png").convert()
         imagenboton.set_colorkey(WHITE)
-        imagenfondo=pygame.image.load("menu fondo.png").convert()
+        imagenfondo=pygame.image.load("img/menu fondo.png").convert()
         pantalla = pygame.display.set_mode(Tamano_display)
         pantalla.fill(BLACK)
 ##Titulo
@@ -111,8 +111,8 @@ def Settings():
         PosicionInicial=[(80,40)]
         Palabrasf(Fuente,TamanoFuente,Palabra,Color,PosicionInicial,pantalla)
 ##Boton 
-        pac_choose = pygame.image.load("choose_pacman.png").convert()
-        blin_choose = pygame.image.load('choose_blinky.png').convert()
+        pac_choose = pygame.image.load("img/choose_pacman.png").convert()
+        blin_choose = pygame.image.load('img/choose_blinky.png').convert()
         pac_choose.set_colorkey(WHITE)
         blin_choose.set_colorkey(WHITE)
         pantalla.blit(pac_choose,[250,150])
