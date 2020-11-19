@@ -1,6 +1,44 @@
 import pygame,random
+#----------------------cLASE eENENEMY-----------
+#terminar esto
+class Enemy_sin_IA(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.image = pygame.image.load("img/player_3.png").convert()
+        self.image.set_colorkey(Black)
+        self.rect = self.image.get_rect()
+        self.speed_x = 0
+        self.speed_y = 0
+        self.rect.y = 320
+        self.rect.x = 71
+    
+    def changespeed(self, y,x):
+        self.speed_y += y  
+        self.speed_x += x      
+    
+    def update(self):
+        print(self.rect.x,self.rect.y)
+        if self.rect.y < 239:
+            self.rect.y = 239
+        if self.rect.y > 395:
+            self.rect.y = 395
+        if self.rect.x > 365:
+            self.rect.x = 365
+        if self.rect.x < 47:
+            self.rect.x = 47
+        #if self.rect.
+        self.rect.y += self.speed_y 
+        self.rect.x += self.speed_x
+class Pelota(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.image = pygame.image.load("img/pelota_1.png").convert()
+        self.image.set_colorkey(Verde)
+        self.rect = self.image.get_rect()
 
-
+    def update(self):
+        self.rect.x += 5
+#----------------------Clase PLAYER---------------------
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
