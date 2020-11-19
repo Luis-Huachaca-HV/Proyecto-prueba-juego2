@@ -90,7 +90,7 @@ def main():
     menu = 0
     creditos = 1
     settings = 2
-    PACBOMBS = 3
+    DODGE = 3
     running = False
     game = Game()
     while not running:
@@ -118,7 +118,7 @@ def main():
                 fase = 0
             elif f == 2:
                 fase = 0
-        elif fase == PACBOMBS:
+        elif fase == DODGE:
             running = game.process_events()
             game.run_logic()
             game.display_frame(screen)
@@ -136,5 +136,3 @@ def main():
 if __name__ == "__main__":
     main()
 
-a = 2
-B = "este es un cambio de prueba"
