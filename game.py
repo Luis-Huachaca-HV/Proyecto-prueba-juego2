@@ -14,11 +14,13 @@ class Pelota(pygame.sprite.Sprite):
         self.image = pygame.image.load("img/pelota_1.png").convert()
         self.image.set_colorkey(Verde)
         self.rect = self.image.get_rect()
-
+        self.lanzador = ""
     def update(self):
-        self.rect.x += 5
-
-class Player(pygame.sprite.Sprite):
+        if self.lanzador == "enemy":#se activa enemy cuando lo lanza el enemigo
+            self.rect.x -= 5
+        elif self.lanzador == "player":#se activa player cuando lo lanza el jugador
+            self.rect.x += 5
+class Enemy_sin_IA(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         self.image = pygame.image.load("img/enemy_1.png").convert()
@@ -26,7 +28,45 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.speed_x = 0
         self.speed_y = 0
+        self.rect.y = 320
+        self.rect.x = 640
+    
+    def changespeed(self, y,x):
+        self.speed_y += y  
+        self.speed_x += x      
+    
     def update(self):
+        #print(self.rect.x,self.rect.y)
+        if self.rect.y < 239:
+            self.rect.y = 239
+        if self.rect.y > 395:
+            self.rect.y = 395
+        if self.rect.x > 745:
+            self.rect.x = 745
+        if self.rect.x < 424:
+            self.rect.x = 424
+        #if self.rect.
+        self.rect.y += self.speed_y 
+        self.rect.x += self.speed_x
+class Player(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.image = pygame.image.load("img/player_1.png").convert()
+        self.image.set_colorkey(Black)
+        self.rect = self.image.get_rect()
+        self.speed_x = 0
+        self.speed_y = 0
+        self.rect.y = 320
+        self.rect.x = 71
+    def update(self):
+        if self.rect.y < 239:
+            self.rect.y = 239
+        if self.rect.y > 395:
+            self.rect.y = 395
+        if self.rect.x > 365:
+            self.rect.x = 365
+        if self.rect.x < 47:
+            self.rect.x = 47
         self.rect.y += self.speed_y 
         self.rect.x += self.speed_x
     def changespeed(self, y,x):
@@ -36,10 +76,12 @@ class Player(pygame.sprite.Sprite):
 class Game(object):
     def __init__(self):
         self.player = Player()
+        self.enemy = Enemy_sin_IA()
         #self.pelota = Pelota()
         self.pelota_list = pygame.sprite.Group()
         self.all_sprites_list = pygame.sprite.Group()
         self.all_sprites_list.add(self.player)
+        self.all_sprites_list.add(self.enemy)
     def process_events(self):
         pygame.init()
         for event in pygame.event.get():
@@ -54,13 +96,29 @@ class Game(object):
                     self.player.changespeed(3,0)
                 if event.key == pygame.K_RIGHT:
                     self.player.changespeed(0,3)
+                if event.key == pygame.K_w :
+                    self.enemy.changespeed(-3,0)
+                if event.key == pygame.K_a:
+                    self.enemy.changespeed(0,-3)
+                if event.key == pygame.K_s :
+                    self.enemy.changespeed(3,0)
+                if event.key == pygame.K_d :
+                    self.enemy.changespeed(0,3)
                 if event.key == pygame.K_SPACE:
                     self.pelota = Pelota()
+                    self.pelota.lanzador = "player"
                     self.pelota.rect.x = self.player.rect.x + 10
                     self.pelota.rect.y = self.player.rect.y -20 
 
                     self.all_sprites_list.add(self.pelota)
                     self.pelota_list.add(self.pelota)
+                if event.key == pygame.K_m:
+                    self.pelo_enemy = Pelota()
+                    self.pelo_enemy.lanzador = "enemy"
+                    self.pelo_enemy.rect.x = self.enemy.rect.x + 10
+                    self.pelo_enemy.rect.y = self.enemy.rect.y -20 
+                    self.all_sprites_list.add(self.pelo_enemy)
+                    self.pelota_list.add(self.pelo_enemy)
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_UP:
                     self.player.changespeed(3,0)
@@ -70,6 +128,14 @@ class Game(object):
                     self.player.changespeed(-3,0)
                 if event.key == pygame.K_RIGHT:
                     self.player.changespeed(0,-3)
+                if event.key == pygame.K_w:
+                    self.enemy.changespeed(3,0)
+                if event.key == pygame.K_a:
+                    self.enemy.changespeed(0,3)
+                if event.key == pygame.K_s:
+                    self.enemy.changespeed(-3,0)
+                if event.key == pygame.K_d :
+                    self.enemy.changespeed(0,-3)
         return False    
     def run_logic(self):
         self.all_sprites_list.update()
