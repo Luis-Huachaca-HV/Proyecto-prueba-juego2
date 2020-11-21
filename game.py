@@ -8,6 +8,30 @@ White = (255,255,255)
 Verde = (0,255,0)
 clock = pygame.time.Clock()
 
+#---------------sprites derecha----------------------
+image_PN1 = pygame.image.load("img/player_1.png").convert()
+image_PN2 = pygame.image.load("img/player_6.png").convert()
+image_PN3 = pygame.image.load("img/player_7.png").convert()
+imagePN = [image_PN1,image_PN2,image_PN3]
+
+imageN = [image_PN, image_EN] #encima de esta lina pon los sprites del enemy
+'''
+#---------------sprites izquierda----------------------
+image_PI1 = pygame.image.load("img/player_7.png").convert()
+image_PI2 = pygame.image.load("img/player_6.png").convert()
+image_PI3 = pygame.image.load("img/player_1.png").convert()
+imagePI = [image_PI1,image_PI2,image_PI3]
+
+imageI = [image_PI, image_EI] #encima de esta lina pon los sprites del enemy
+'''
+#---------------sprites lanzar----------------------
+image_PL1 = pygame.image.load("img/player_3.png").convert()
+image_PL2 = pygame.image.load("img/player_4.png").convert()
+imagePL = [image_PL1, image_PL2]
+
+imageL = [imagePL, imageEL] #encima de esta lina pon los sprites del enemy
+
+
 class Pelota(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
@@ -59,6 +83,9 @@ class Player(pygame.sprite.Sprite):
         self.rect.y = 320
         self.rect.x = 71
     def update(self):
+        self.tecla = pygame.key.get_pressed()
+        if self.tecla[pygame.K_RIGHT]:
+
         if self.rect.y < 239:
             self.rect.y = 239
         if self.rect.y > 395:
