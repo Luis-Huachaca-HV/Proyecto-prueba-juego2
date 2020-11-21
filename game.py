@@ -14,7 +14,8 @@ image_EN2 = pygame.image.load("img/enemy_6.png").convert()
 image_EN3 = pygame.image.load("img/enemy_7.png").convert()
 
 imageEN = [image_EN1,image_EN2,image_EN3]
- 
+
+
 class Pelota(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
