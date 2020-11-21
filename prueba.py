@@ -67,15 +67,7 @@ class Player(pygame.sprite.Sprite):
         #if self.rect.
         self.rect.y += self.speed_y 
         self.rect.x += self.speed_x
-class Pelota(pygame.sprite.Sprite):
-    def __init__(self):
-        super().__init__()
-        self.image = pygame.image.load("img/pelota_1.png").convert()
-        self.image.set_colorkey(Verde)
-        self.rect = self.image.get_rect()
 
-    def update(self):
-        self.rect.x += 5
         
 Black = (0,0,0)
 White = (255,255,255)

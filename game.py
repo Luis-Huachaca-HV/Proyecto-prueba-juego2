@@ -50,6 +50,7 @@ class Enemy_sin_IA(pygame.sprite.Sprite):
         self.image = pygame.image.load("img/enemy_1.png").convert()
         self.image.set_colorkey(Black)
         self.rect = self.image.get_rect()
+        self.vida = 30
         self.speed_x = 0
         self.speed_y = 0
         self.rect.y = 320
@@ -78,6 +79,7 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.image.load("img/player_1.png").convert()
         self.image.set_colorkey(Black)
         self.rect = self.image.get_rect()
+        self.vida = 30
         self.speed_x = 0
         self.speed_y = 0
         self.rect.y = 320
@@ -102,15 +104,23 @@ class Player(pygame.sprite.Sprite):
 
 class Game(object):
     def __init__(self):
+        self.pelota = Pelota()
         self.player = Player()
+        self.pelo_enemy = Pelota()
         self.enemy = Enemy_sin_IA()
-        #self.pelota = Pelota()
-        self.pelota_list = pygame.sprite.Group()
         self.all_sprites_list = pygame.sprite.Group()
         self.all_sprites_list.add(self.player)
         self.all_sprites_list.add(self.enemy)
+        self.my_players = pygame.sprite.Group(self.enemy)
+        self.pelota_list = pygame.sprite.Group(self.pelota)
     def process_events(self):
         pygame.init()
+        acerte1 = pygame.sprite.groupcollide(self.pelota_list,self.my_players, True, True)
+        #acerte2 = pygame.sprite.groupecollide(self.pelo_enemy,self.player, True, True)
+        if acerte1:
+            print("enemy recibio un golpe")
+        #if acerte2:
+        #    print("player recibio un golpe")
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return True
@@ -132,7 +142,6 @@ class Game(object):
                 if event.key == pygame.K_d :
                     self.enemy.changespeed(0,3)
                 if event.key == pygame.K_SPACE:
-                    self.pelota = Pelota()
                     self.pelota.lanzador = "player"
                     self.pelota.rect.x = self.player.rect.x + 10
                     self.pelota.rect.y = self.player.rect.y -20 
@@ -140,7 +149,6 @@ class Game(object):
                     self.all_sprites_list.add(self.pelota)
                     self.pelota_list.add(self.pelota)
                 if event.key == pygame.K_m:
-                    self.pelo_enemy = Pelota()
                     self.pelo_enemy.lanzador = "enemy"
                     self.pelo_enemy.rect.x = self.enemy.rect.x + 10
                     self.pelo_enemy.rect.y = self.enemy.rect.y -20 
