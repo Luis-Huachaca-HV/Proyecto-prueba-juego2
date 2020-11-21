@@ -8,6 +8,13 @@ White = (255,255,255)
 Verde = (0,255,0)
 clock = pygame.time.Clock()
 
+#----------ARREGLO DE IMÁGENES-DERECHA-ARRIBA.ABAJO------------------#
+image_EN1 = pygame.image.load("img/enemy_1.png").convert()
+image_EN2 = pygame.image.load("img/enemy_6.png").convert()
+image_EN3 = pygame.image.load("img/enemy_7.png").convert()
+
+imageEN = [image_EN1,image_EN2,image_EN3]
+ 
 class Pelota(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
@@ -37,6 +44,13 @@ class Enemy_sin_IA(pygame.sprite.Sprite):
         self.speed_x += x      
     
     def update(self):
+        self.tecla = pygame.key.get_pressed()
+        if self.tecla[pygame.K_RIGHT]:
+            self.image = images[0][self.ELE_P]
+            self.images = [self.image[0],self.image[1],self.image[2]]
+            self.images[0].set_colorkey(WHITE)
+            self.images[1].set_colorkey(WHITE)
+            self.images[2].set_colorkey(WHITE)
         #print(self.rect.x,self.rect.y)
         if self.rect.y < 239:
             self.rect.y = 239
