@@ -26,6 +26,7 @@ class Enemy_sin_IA(pygame.sprite.Sprite):
         self.image = pygame.image.load("img/enemy_1.png").convert()
         self.image.set_colorkey(Black)
         self.rect = self.image.get_rect()
+        self.vida = 30
         self.speed_x = 0
         self.speed_y = 0
         self.rect.y = 320
@@ -54,6 +55,7 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.image.load("img/player_1.png").convert()
         self.image.set_colorkey(Black)
         self.rect = self.image.get_rect()
+        self.vida = 30
         self.speed_x = 0
         self.speed_y = 0
         self.rect.y = 320
