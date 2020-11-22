@@ -7,8 +7,8 @@ Black = (0,0,0)
 White = (255,255,255)
 Verde = (0,255,0)
 clock = pygame.time.Clock()
-
-#----------ARREGLO DE IMÁGENES-DERECHA-ARRIBA.ABAJO------------------#
+pygame.display.set_mode()
+#----------ARREGLO DE IMÁGENES-DERECHA------------------#
 image_EN1 = pygame.image.load("img/enemy_1.png").convert()
 image_EN2 = pygame.image.load("img/enemy_6.png").convert()
 image_EN3 = pygame.image.load("img/enemy_7.png").convert()
@@ -18,9 +18,11 @@ imageEN = [image_EN1,image_EN2,image_EN3]
 image_PN1 = pygame.image.load("img/player_1.png").convert()
 image_PN2 = pygame.image.load("img/player_6.png").convert()
 image_PN3 = pygame.image.load("img/player_7.png").convert()
+
 imagePN = [image_PN1,image_PN2,image_PN3]
 
-imageN = [image_PN, image_EN] #encima de esta lina pon los sprites del enemy
+
+imageN = [imagePN, imageEN] #encima de esta lina pon los sprites del enemy
 '''
 #---------------sprites izquierda----------------------
 image_PI1 = pygame.image.load("img/player_7.png").convert()
@@ -30,22 +32,48 @@ imagePI = [image_PI1,image_PI2,image_PI3]
 
 imageI = [image_PI, image_EI] #encima de esta lina pon los sprites del enemy
 '''
-#---------------sprites lanzar----------------------
+#---------------sprites lanzar player----------------------
 image_PL1 = pygame.image.load("img/player_3.png").convert()
 image_PL2 = pygame.image.load("img/player_4.png").convert()
 imagePL = [image_PL1, image_PL2]
+#sprites lanzar enemy
+image_EL1 = pygame.image.load("img/enemy_3.png").convert()
+image_EL2 = pygame.image.load("img/enemy_4.png").convert()
+imageEL = [image_EL1, image_EL2]
 
 imageL = [imagePL, imageEL] #encima de esta lina pon los sprites del enemy
+
+#images = [imageN,imageL]
+#image = imageN[personaje][animación]
+#balon(lanzamiento) = imageL[personaje][animacion]
+#----------------SPRITES PELOTA----------------
+pel_1 = pygame.image.load("img/pelota_1.png").convert()
+pel_2 = pygame.image.load("img/pelota_2.png").convert()
+pel_3 = pygame.image.load("img/pelota_3.png").convert()
+pel_4 = pygame.image.load("img/pelota_4.png").convert()
+pel_5 = pygame.image.load("img/pelota_5.png").convert()
+pel_6 = pygame.image.load("img/pelota_6.png").convert()
+
+l_pel = [pel_1,pel_2,pel_3,pel_4,pel_5,pel_6]
 
 
 class Pelota(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load("img/pelota_1.png").convert()
+        self.images = []
+        self.image = l_pel[0]
         self.image.set_colorkey(Verde)
+        #self.image.append()
+        self.index = 0
+        
         self.rect = self.image.get_rect()
         self.lanzador = ""
     def update(self):
+        self.image = l_pel[self.index]
+        self.image.set_colorkey(Verde)
+        self.index += 1
+        if self.index > len(l_pel)-1:
+            self.index=0
         if self.lanzador == "enemy":#se activa enemy cuando lo lanza el enemigo
             self.rect.x -= 5
         elif self.lanzador == "player":#se activa player cuando lo lanza el jugador
@@ -67,13 +95,6 @@ class Enemy_sin_IA(pygame.sprite.Sprite):
         self.speed_x += x      
     
     def update(self):
-        self.tecla = pygame.key.get_pressed()
-        if self.tecla[pygame.K_RIGHT]:
-            self.image = images[0][self.ELE_P]
-            self.images = [self.image[0],self.image[1],self.image[2]]
-            self.images[0].set_colorkey(WHITE)
-            self.images[1].set_colorkey(WHITE)
-            self.images[2].set_colorkey(WHITE)
         #print(self.rect.x,self.rect.y)
         if self.rect.y < 239:
             self.rect.y = 239
@@ -98,8 +119,8 @@ class Player(pygame.sprite.Sprite):
         self.rect.y = 320
         self.rect.x = 71
     def update(self):
-        self.tecla = pygame.key.get_pressed()
-        if self.tecla[pygame.K_RIGHT]:
+        #self.tecla = pygame.key.get_pressed()
+        #if self.tecla[pygame.K_RIGHT]:
 
         if self.rect.y < 239:
             self.rect.y = 239
