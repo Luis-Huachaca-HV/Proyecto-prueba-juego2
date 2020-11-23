@@ -309,7 +309,7 @@ def main():
             running = game.process_events()
             game.run_logic()
             game.display_frame(screen)
-            clock.tick(5)
+            clock.tick(35)
             
             #pseudo_clasejuego()
             # aca ejecutara el juego
