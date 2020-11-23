@@ -157,17 +157,52 @@ class Enemy_sin_IA(pygame.sprite.Sprite):
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load("img/player_1.png").convert()
+        self.images = []
+        self.image = imageN[0][0]
         self.image.set_colorkey(Black)
         self.rect = self.image.get_rect()
+        self.images.append(self.image)
+        self.index = 0
+        self.imagen = self.images[self.index]
         self.vida = 30
         self.speed_x = 0
         self.speed_y = 0
         self.rect.y = 320
         self.rect.x = 71
     def update(self):
-        #self.tecla = pygame.key.get_pressed()
-        #if self.tecla[pygame.K_RIGHT]:
+        tecla = pygame.key.get_pressed()
+        if tecla[pygame.K_RIGHT]:
+            self.image = imageN[0][0]
+            self.images = imageN[0]
+            self.image.set_colorkey(Black)
+        elif tecla[pygame.K_LEFT]:
+            
+            self.image = imageN[0][0]
+            self.images = imageN[0]
+            self.image.set_colorkey(Black)
+        elif tecla[pygame.K_UP]:
+            self.image = imageN[0][0]
+            self.images = imageN[0]
+            self.image.set_colorkey(Black)
+        elif tecla[pygame.K_DOWN]:
+            
+            self.image = imageN[0][0]
+            self.images = imageN[0]
+            self.image.set_colorkey(Black)
+        elif tecla[pygame.K_SPACE]:
+            
+            self.image = imageN[0][0]
+            self.images = imageL[0]
+            self.image.set_colorkey(Black)
+        else:
+            self.image = imageN[0][0]
+            self.images = [self.image]
+
+        if self.index >= len(self.images):
+                self.index = 0
+        self.image = self.images[self.index]        
+        self.image.set_colorkey(Black)
+        self.index += 1
 
         if self.rect.y < 239:
             self.rect.y = 239
@@ -309,7 +344,7 @@ def main():
             running = game.process_events()
             game.run_logic()
             game.display_frame(screen)
-            clock.tick(35)
+            clock.tick(7)
             
             #pseudo_clasejuego()
             # aca ejecutara el juego
