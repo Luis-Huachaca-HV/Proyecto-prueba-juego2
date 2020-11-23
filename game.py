@@ -16,8 +16,8 @@ image_EN3 = pygame.image.load("img/enemy_7.png").convert()
 imageEN = [image_EN1,image_EN2,image_EN3]
 #---------------sprites derecha----------------------
 image_PN1 = pygame.image.load("img/player_1.png").convert()
-image_PN2 = pygame.image.load("img/player_6.png").convert()
-image_PN3 = pygame.image.load("img/player_7.png").convert()
+image_PN3 = pygame.image.load("img/player_6.png").convert()
+image_PN2 = pygame.image.load("img/player_7.png").convert()
 
 imagePN = [image_PN1,image_PN2,image_PN3]
 
@@ -54,36 +54,41 @@ pel_4 = pygame.image.load("img/pelota_4.png").convert()
 pel_5 = pygame.image.load("img/pelota_5.png").convert()
 pel_6 = pygame.image.load("img/pelota_6.png").convert()
 
-l_pel = [pel_1,pel_2,pel_3,pel_4,pel_5,pel_6]
+l_pel = [pel_1,pel_2,pel_3]
 
 
 class Pelota(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.images = []
+        #self.images = []
         self.image = l_pel[0]
         self.image.set_colorkey(Verde)
         #self.image.append()
         self.index = 0
-        
+       # self.pelo_clock = pygame.time.Clock()
+        #se
         self.rect = self.image.get_rect()
         self.lanzador = ""
     def update(self):
         self.image = l_pel[self.index]
         self.image.set_colorkey(Verde)
         self.index += 1
-        if self.index > len(l_pel)-1:
+        if self.index >= len(l_pel)-1:
             self.index=0
         if self.lanzador == "enemy":#se activa enemy cuando lo lanza el enemigo
-            self.rect.x -= 5
+            self.rect.x -= 25
         elif self.lanzador == "player":#se activa player cuando lo lanza el jugador
-            self.rect.x += 5
+            self.rect.x += 25
 class Enemy_sin_IA(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load("img/enemy_1.png").convert()
+        self.images = []
+        self.image = imageN[1][0]
         self.image.set_colorkey(Black)
         self.rect = self.image.get_rect()
+        self.images.append(self.image)
+        self.index = 0
+        self.imagen = self.images[self.index]
         self.vida = 30
         self.speed_x = 0
         self.speed_y = 0
@@ -96,6 +101,48 @@ class Enemy_sin_IA(pygame.sprite.Sprite):
     
     def update(self):
         #print(self.rect.x,self.rect.y)
+        tecla = pygame.key.get_pressed()
+        if tecla[pygame.K_d]:
+            
+            self.image = imageN[1][0]
+            self.images = imageN[1]
+            self.image.set_colorkey(Black)
+            
+
+        elif tecla[pygame.K_a]:
+            
+            self.image = imageN[1][0]
+            self.images = imageN[1]
+            self.image.set_colorkey(Black)
+            
+        elif tecla[pygame.K_w]:
+            
+            self.image = imageN[1][0]
+            self.images = imageN[1]
+            self.image.set_colorkey(Black)
+            
+            
+        elif tecla[pygame.K_s]:
+            
+            self.image = imageN[1][0]
+            self.images = imageN[1]
+            self.image.set_colorkey(Black)
+            
+        elif tecla[pygame.K_m]:
+            
+            self.image = imageN[1][0]
+            self.images = imageL[1]
+            self.image.set_colorkey(Black)
+        else:
+            self.image = imageN[1][0]
+            self.images = [self.image]
+                
+        if self.index >= len(self.images):
+                self.index = 0
+        self.image = self.images[self.index]        
+        self.image.set_colorkey(Black)
+        self.index += 1
+       
         if self.rect.y < 239:
             self.rect.y = 239
         if self.rect.y > 395:
@@ -149,10 +196,10 @@ class Game(object):
         self.pelota_list = pygame.sprite.Group(self.pelota)
     def process_events(self):
         pygame.init()
-        acerte1 = pygame.sprite.groupcollide(self.pelota_list,self.my_players, True, True)
+        #acerte1 = pygame.sprite.groupcollide(self.pelota_list,self.my_players, True, True)
         #acerte2 = pygame.sprite.groupecollide(self.pelo_enemy,self.player, True, True)
-        if acerte1:
-            print("enemy recibio un golpe")
+        #if acerte1:
+            #print("enemy recibio un golpe")
         #if acerte2:
         #    print("player recibio un golpe")
         for event in pygame.event.get():
@@ -179,15 +226,19 @@ class Game(object):
                     self.pelota.lanzador = "player"
                     self.pelota.rect.x = self.player.rect.x + 10
                     self.pelota.rect.y = self.player.rect.y -20 
+                    #clock = pygame.time.Clock()
 
                     self.all_sprites_list.add(self.pelota)
                     self.pelota_list.add(self.pelota)
+                    #self.pelota.pelo_clock.tick(13)
+
                 if event.key == pygame.K_m:
                     self.pelo_enemy.lanzador = "enemy"
                     self.pelo_enemy.rect.x = self.enemy.rect.x + 10
                     self.pelo_enemy.rect.y = self.enemy.rect.y -20 
                     self.all_sprites_list.add(self.pelo_enemy)
                     self.pelota_list.add(self.pelo_enemy)
+                    #self.pelo_enemy.pelo_clock.tick(13)
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_UP:
                     self.player.changespeed(3,0)
@@ -207,6 +258,7 @@ class Game(object):
                     self.enemy.changespeed(0,-3)
         return False    
     def run_logic(self):
+        
         self.all_sprites_list.update()
     def display_frame(self,screen):
         screen.fill(White)
@@ -257,7 +309,8 @@ def main():
             running = game.process_events()
             game.run_logic()
             game.display_frame(screen)
-            clock.tick(60)
+            clock.tick(5)
+            
             #pseudo_clasejuego()
             # aca ejecutara el juego
             #running = game.process_events()
