@@ -111,14 +111,14 @@ def Settings():
         PosicionInicial=[(80,40)]
         Palabrasf(Fuente,TamanoFuente,Palabra,Color,PosicionInicial,pantalla)
 ##Boton 
-        pac_choose = pygame.image.load("img/choose_pacman.png").convert()
-        blin_choose = pygame.image.load('img/choose_blinky.png').convert()
+        pac_choose = pygame.image.load("img/enemy_2.png").convert()
+        blin_choose = pygame.image.load('img/player_2.png').convert()
         pac_choose.set_colorkey(WHITE)
         blin_choose.set_colorkey(WHITE)
-        pantalla.blit(pac_choose,[250,150])
-        pantalla.blit(blin_choose,[600,150])
-        Palabra=["PACMAN","BLIBKY"]
-        PosicionInicial=[(250,400),(600,400)];#/1.5,-(TamanoFuente/2.8)        
+        pantalla.blit(pac_choose,[120,120])
+        pantalla.blit(blin_choose,[500,120])
+        Palabra=["PLAYER","ENEMY"]
+        PosicionInicial=[(150,400),(540,400)];#/1.5,-(TamanoFuente/2.8)        
         for e in range(2):
             a = Boton(imagenboton,(PosicionInicial[e][0]-(TamanoFuente),PosicionInicial[e][1]-(TamanoFuente/2.6)),pantalla)
             Palabrasf(Fuente,TamanoFuente,Palabra,Color,PosicionInicial,pantalla)

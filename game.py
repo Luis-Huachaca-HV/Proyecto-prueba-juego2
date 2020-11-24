@@ -152,6 +152,7 @@ class Enemy_sin_IA(pygame.sprite.Sprite):
             self.image.set_colorkey(Black)
         elif self.vida == 0:
             self.images = [pygame.image.load("img/enemy_5.png")]
+
         else:
             self.image = imageN[1][0]
             self.images = [self.image]
@@ -178,18 +179,56 @@ class Enemy_sin_IA(pygame.sprite.Sprite):
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load("img/player_1.png").convert()
+        self.images = []
+        self.image = imageN[0][0]
         self.image.set_colorkey(Black)
         self.rect = self.image.get_rect()
-        self.vida = 30
+        self.images.append(self.image)
+        self.index = 0
+        self.imagen = self.images[self.index]
+        self.vida = 10
         self.speed_x = 0
         self.speed_y = 0
         self.rect.y = 320
         self.rect.x = 71
 
     def update(self):
-        # self.tecla = pygame.key.get_pressed()
-        # if self.tecla[pygame.K_RIGHT]:
+        tecla = pygame.key.get_pressed()
+        if tecla[pygame.K_RIGHT]:
+            self.image = imageN[0][0]
+            self.images = imageN[0]
+            self.image.set_colorkey(Black)
+        elif tecla[pygame.K_LEFT]:
+
+            self.image = imageN[0][0]
+            self.images = imageN[0]
+            self.image.set_colorkey(Black)
+        elif tecla[pygame.K_UP]:
+            self.image = imageN[0][0]
+            self.images = imageN[0]
+            self.image.set_colorkey(Black)
+        elif tecla[pygame.K_DOWN]:
+
+            self.image = imageN[0][0]
+            self.images = imageN[0]
+            self.image.set_colorkey(Black)
+        elif tecla[pygame.K_SPACE]:
+
+            self.image = imageN[0][0]
+            self.images = imageL[0]
+            self.image.set_colorkey(Black)
+
+        elif self.vida == 0:
+            self.images = [pygame.image.load("img/player_5.png")]
+        else:
+            self.image = imageN[0][0]
+            self.images = [self.image]
+
+        if self.index >= len(self.images):
+            self.index = 0
+        self.image = self.images[self.index]
+        self.image.set_colorkey(Black)
+        self.index += 1
 
         if self.rect.y < 239:
             self.rect.y = 239
@@ -229,6 +268,15 @@ class Game(object):
                 print("He muerto:C")
                #self.enemy.image = pygame.image.load("img/enemy_5.png")
             print(self.enemy.vida)
+
+        if colision(self.pelo_enemy.rect.x, self.pelo_enemy.rect.y, self.player.rect.x, self.player.rect.y) == True:
+            self.pelo_enemy.rect.x = -1000
+            self.pelo_enemy.rect.y = -100
+            self.player.vida -= 5
+            if self.player.vida == 0:
+                print("He muerto:C")
+               #self.enemy.image = pygame.image.load("img/enemy_5.png")
+            print(self.player.vida)
         '''hits = pygame.sprite.spritecollide(Player, Pelota, True)'''
 
         '''if hits:
@@ -244,21 +292,21 @@ class Game(object):
                 return True
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP:
-                    self.player.changespeed(-3, 0)
+                    self.player.changespeed(-6, 0)
                 if event.key == pygame.K_LEFT:
-                    self.player.changespeed(0, -3)
+                    self.player.changespeed(0, -6)
                 if event.key == pygame.K_DOWN:
-                    self.player.changespeed(3, 0)
+                    self.player.changespeed(6, 0)
                 if event.key == pygame.K_RIGHT:
-                    self.player.changespeed(0, 3)
+                    self.player.changespeed(0, 6)
                 if event.key == pygame.K_w:
-                    self.enemy.changespeed(-3, 0)
+                    self.enemy.changespeed(-6, 0)
                 if event.key == pygame.K_a:
-                    self.enemy.changespeed(0, -3)
+                    self.enemy.changespeed(0, -6)
                 if event.key == pygame.K_s:
-                    self.enemy.changespeed(3, 0)
+                    self.enemy.changespeed(6, 0)
                 if event.key == pygame.K_d:
-                    self.enemy.changespeed(0, 3)
+                    self.enemy.changespeed(0, 6)
                 if event.key == pygame.K_SPACE:
                     self.pelota.lanzador = "player"
                     self.pelota.rect.x = self.player.rect.x + 10
@@ -278,21 +326,21 @@ class Game(object):
                     # self.pelo_enemy.pelo_clock.tick(13)
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_UP:
-                    self.player.changespeed(3, 0)
+                    self.player.changespeed(6, 0)
                 if event.key == pygame.K_LEFT:
-                    self.player.changespeed(0, 3)
+                    self.player.changespeed(0, 6)
                 if event.key == pygame.K_DOWN:
-                    self.player.changespeed(-3, 0)
+                    self.player.changespeed(-6, 0)
                 if event.key == pygame.K_RIGHT:
-                    self.player.changespeed(0, -3)
+                    self.player.changespeed(0, -6)
                 if event.key == pygame.K_w:
-                    self.enemy.changespeed(3, 0)
+                    self.enemy.changespeed(6, 0)
                 if event.key == pygame.K_a:
-                    self.enemy.changespeed(0, 3)
+                    self.enemy.changespeed(0, 6)
                 if event.key == pygame.K_s:
-                    self.enemy.changespeed(-3, 0)
+                    self.enemy.changespeed(-6, 0)
                 if event.key == pygame.K_d:
-                    self.enemy.changespeed(0, -3)
+                    self.enemy.changespeed(0, -6)
         return False
 
     def run_logic(self):
@@ -348,7 +396,7 @@ def main():
             running = game.process_events()
             game.run_logic()
             game.display_frame(screen)
-            clock.tick(5)
+            clock.tick(9)
 
             # pseudo_clasejuego()
             # aca ejecutara el juego
