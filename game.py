@@ -234,7 +234,8 @@ class Game(object):
         #acerte1 = pygame.sprite.groupcollide(self.pelota_list,self.my_players, True, True)
         #acerte2 = pygame.sprite.groupecollide(self.pelo_enemy,self.player, True, True)
         #if acerte1:
-            #print("enemy recibio un golpe")
+        #    print("enemy recibio un golpe")
+        #    pygame.display.update()
         #if acerte2:
         #    print("player recibio un golpe")
         for event in pygame.event.get():
@@ -242,21 +243,21 @@ class Game(object):
                 return True
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP:
-                    self.player.changespeed(-3,0)
+                    self.player.changespeed(-6,0)
                 if event.key == pygame.K_LEFT:
-                    self.player.changespeed(0,-3)
+                    self.player.changespeed(0,-6)
                 if event.key == pygame.K_DOWN:
-                    self.player.changespeed(3,0)
+                    self.player.changespeed(6,0)
                 if event.key == pygame.K_RIGHT:
-                    self.player.changespeed(0,3)
+                    self.player.changespeed(0,6)
                 if event.key == pygame.K_w :
-                    self.enemy.changespeed(-3,0)
+                    self.enemy.changespeed(-6,0)
                 if event.key == pygame.K_a:
-                    self.enemy.changespeed(0,-3)
+                    self.enemy.changespeed(0,-6)
                 if event.key == pygame.K_s :
-                    self.enemy.changespeed(3,0)
+                    self.enemy.changespeed(6,0)
                 if event.key == pygame.K_d :
-                    self.enemy.changespeed(0,3)
+                    self.enemy.changespeed(0,6)
                 if event.key == pygame.K_SPACE:
                     self.pelota.lanzador = "player"
                     self.pelota.rect.x = self.player.rect.x + 10
@@ -276,21 +277,21 @@ class Game(object):
                     #self.pelo_enemy.pelo_clock.tick(13)
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_UP:
-                    self.player.changespeed(3,0)
+                    self.player.changespeed(6,0)
                 if event.key == pygame.K_LEFT:
-                    self.player.changespeed(0,3)
+                    self.player.changespeed(0,6)
                 if event.key == pygame.K_DOWN:
-                    self.player.changespeed(-3,0)
+                    self.player.changespeed(-6,0)
                 if event.key == pygame.K_RIGHT:
-                    self.player.changespeed(0,-3)
+                    self.player.changespeed(0,-6)
                 if event.key == pygame.K_w:
-                    self.enemy.changespeed(3,0)
+                    self.enemy.changespeed(6,0)
                 if event.key == pygame.K_a:
-                    self.enemy.changespeed(0,3)
+                    self.enemy.changespeed(0,6)
                 if event.key == pygame.K_s:
-                    self.enemy.changespeed(-3,0)
+                    self.enemy.changespeed(-6,0)
                 if event.key == pygame.K_d :
-                    self.enemy.changespeed(0,-3)
+                    self.enemy.changespeed(0,-6)
         return False    
     def run_logic(self):
         
