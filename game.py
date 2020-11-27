@@ -10,6 +10,14 @@ White = (255, 255, 255)
 Verde = (0, 255, 0)
 clock = pygame.time.Clock()
 pygame.display.set_mode()
+
+pygame.mixer.init()
+sound = pygame.mixer.Sound("audio_trote.ogg")
+sound2 = pygame.mixer.Sound("audio_trote.ogg")
+sound3 = pygame.mixer.Sound("audio_trote.ogg")
+sound4 = pygame.mixer.Sound("audio_estadio.ogg")
+sound5 = pygame.mixer.Sound("grito_golpe.ogg")
+
 #----------ARREGLO DE IMÁGENES-DERECHA------------------#
 image_EN1 = pygame.image.load("img/enemy_1.png").convert()
 image_EN2 = pygame.image.load("img/enemy_6.png").convert()
@@ -121,38 +129,38 @@ class Enemy_sin_IA(pygame.sprite.Sprite):
     def update(self):
         # print(self.rect.x,self.rect.y)
         tecla = pygame.key.get_pressed()
-        if tecla[pygame.K_d]:
-
+        if tecla[pygame.K_RIGHT]:
             self.image = imageN[1][0]
             self.images = imageN[1]
             self.image.set_colorkey(Black)
+            sound.play()
 
-        elif tecla[pygame.K_a]:
-
+        elif tecla[pygame.K_LEFT]:
             self.image = imageN[1][0]
             self.images = imageN[1]
             self.image.set_colorkey(Black)
+            sound.play()
 
-        elif tecla[pygame.K_w]:
-
+        elif tecla[pygame.K_UP]:
             self.image = imageN[1][0]
             self.images = imageN[1]
             self.image.set_colorkey(Black)
+            sound.play()
 
-        elif tecla[pygame.K_s]:
-
+        elif tecla[pygame.K_DOWN]:
             self.image = imageN[1][0]
             self.images = imageN[1]
             self.image.set_colorkey(Black)
+            sound.play()
 
         elif tecla[pygame.K_m]:
-
             self.image = imageN[1][0]
             self.images = imageL[1]
             self.image.set_colorkey(Black)
+
         elif self.vida == 0:
             self.images = [pygame.image.load("img/enemy_5.png")]
-
+            
         else:
             self.image = imageN[1][0]
             self.images = [self.image]
@@ -194,32 +202,38 @@ class Player(pygame.sprite.Sprite):
 
     def update(self):
         tecla = pygame.key.get_pressed()
-        if tecla[pygame.K_RIGHT]:
+        if tecla[pygame.K_d]:
             self.image = imageN[0][0]
             self.images = imageN[0]
             self.image.set_colorkey(Black)
-        elif tecla[pygame.K_LEFT]:
+            sound2.play()
 
+        elif tecla[pygame.K_a]:
             self.image = imageN[0][0]
             self.images = imageN[0]
             self.image.set_colorkey(Black)
-        elif tecla[pygame.K_UP]:
-            self.image = imageN[0][0]
-            self.images = imageN[0]
-            self.image.set_colorkey(Black)
-        elif tecla[pygame.K_DOWN]:
+            sound2.play()
 
+        elif tecla[pygame.K_w]:
             self.image = imageN[0][0]
             self.images = imageN[0]
             self.image.set_colorkey(Black)
-        elif tecla[pygame.K_SPACE]:
+            sound2.play()
 
+        elif tecla[pygame.K_s]:
+            self.image = imageN[0][0]
+            self.images = imageN[0]
+            self.image.set_colorkey(Black)
+            sound2.play()
+
+        elif tecla[pygame.K_c]:
             self.image = imageN[0][0]
             self.images = imageL[0]
             self.image.set_colorkey(Black)
 
         elif self.vida == 0:
             self.images = [pygame.image.load("img/player_5.png")]
+            
         else:
             self.image = imageN[0][0]
             self.images = [self.image]
@@ -265,40 +279,49 @@ class Game(object):
             self.pelota.rect.y = -100
             self.enemy.vida -= 5
             if self.enemy.vida == 0:
+                
                 print("He muerto:C")
 
             print(self.enemy.vida)
+            sound5.play()
 
         if colision(self.pelo_enemy.rect.x, self.pelo_enemy.rect.y, self.player.rect.x, self.player.rect.y) == True:
             self.pelo_enemy.rect.x = -1000
             self.pelo_enemy.rect.y = -100
             self.player.vida -= 5
             if self.player.vida == 0:
+                
                 print("He muerto:C")
 
             print(self.player.vida)
-
+        '''if hits:
+            print("choco")'''
+        # acerte1 = pygame.sprite.groupcollide(self.pelota_list,self.my_players, True, True)
+        # acerte2 = pygame.sprite.groupcollide(self.pelo_enemy,self.player, True, True)
+        # if acerte1:
+        # print("enemy recibio un golpe")
+        # if acerte2:
+        #    print("player recibio un golpe")
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return True
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_UP:
-                    self.player.changespeed(-6, 0)
-                if event.key == pygame.K_LEFT:
-                    self.player.changespeed(0, -6)
-                if event.key == pygame.K_DOWN:
-                    self.player.changespeed(6, 0)
-                if event.key == pygame.K_RIGHT:
-                    self.player.changespeed(0, 6)
                 if event.key == pygame.K_w:
-                    self.enemy.changespeed(-6, 0)
+                    self.player.changespeed(-6, 0)
                 if event.key == pygame.K_a:
-                    self.enemy.changespeed(0, -6)
+                    self.player.changespeed(0, -6)
                 if event.key == pygame.K_s:
-                    self.enemy.changespeed(6, 0)
+                    self.player.changespeed(6, 0)
                 if event.key == pygame.K_d:
+                    self.player.changespeed(0, 6)
+                if event.key == pygame.K_UP:
+                    self.enemy.changespeed(-6, 0)
+                if event.key == pygame.K_LEFT:
+                    self.enemy.changespeed(0, -6)
+                if event.key == pygame.K_DOWN:
+                    self.enemy.changespeed(6, 0)
+                if event.key == pygame.K_RIGHT:
                     self.enemy.changespeed(0, 6)
-                if event.key == pygame.K_SPACE:
+                if event.key == pygame.K_c:
                     self.pelota.lanzador = "player"
                     self.pelota.rect.x = self.player.rect.x + 10
                     self.pelota.rect.y = self.player.rect.y - 20
@@ -316,21 +339,21 @@ class Game(object):
                     self.pelota_list.add(self.pelo_enemy)
                     # self.pelo_enemy.pelo_clock.tick(13)
             if event.type == pygame.KEYUP:
-                if event.key == pygame.K_UP:
-                    self.player.changespeed(6, 0)
-                if event.key == pygame.K_LEFT:
-                    self.player.changespeed(0, 6)
-                if event.key == pygame.K_DOWN:
-                    self.player.changespeed(-6, 0)
-                if event.key == pygame.K_RIGHT:
-                    self.player.changespeed(0, -6)
                 if event.key == pygame.K_w:
-                    self.enemy.changespeed(6, 0)
+                    self.player.changespeed(6, 0)
                 if event.key == pygame.K_a:
-                    self.enemy.changespeed(0, 6)
+                    self.player.changespeed(0, 6)
                 if event.key == pygame.K_s:
-                    self.enemy.changespeed(-6, 0)
+                    self.player.changespeed(-6, 0)
                 if event.key == pygame.K_d:
+                    self.player.changespeed(0, -6)
+                if event.key == pygame.K_UP:
+                    self.enemy.changespeed(6, 0)
+                if event.key == pygame.K_LEFT:
+                    self.enemy.changespeed(0, 6)
+                if event.key == pygame.K_DOWN:
+                    self.enemy.changespeed(-6, 0)
+                if event.key == pygame.K_RIGHT:
                     self.enemy.changespeed(0, -6)
         return False
 
@@ -364,6 +387,8 @@ def main():
             f = Menu()
             if f == 0:
                 fase = 3
+                pygame.mixer.music.set_volume(0)
+                sound4.play(3)
             elif f == 1:
                 fase = 1
             elif f == 2:
