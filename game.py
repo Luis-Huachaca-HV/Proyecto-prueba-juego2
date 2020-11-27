@@ -281,7 +281,7 @@ class Game(object):
             if self.enemy.vida == 0:
                 
                 print("He muerto:C")
-
+               #self.enemy.image = pygame.image.load("img/enemy_5.png")
             print(self.enemy.vida)
             sound5.play()
 
@@ -292,8 +292,11 @@ class Game(object):
             if self.player.vida == 0:
                 
                 print("He muerto:C")
-
+               #self.enemy.image = pygame.image.load("img/enemy_5.png")
             print(self.player.vida)
+            sound5.play()
+        '''hits = pygame.sprite.spritecollide(Player, Pelota, True)'''
+
         '''if hits:
             print("choco")'''
         # acerte1 = pygame.sprite.groupcollide(self.pelota_list,self.my_players, True, True)
@@ -305,6 +308,7 @@ class Game(object):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return True
+            if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_w:
                     self.player.changespeed(-6, 0)
                 if event.key == pygame.K_a:
@@ -414,6 +418,12 @@ def main():
             game.display_frame(screen)
             clock.tick(9)
 
+            # pseudo_clasejuego()
+            # aca ejecutara el juego
+            # running = game.process_events()
+            # game.run_logic()
+            # game.display_frame(screen)
+            # clock.tick(10)
 
     pygame.quit()
 
