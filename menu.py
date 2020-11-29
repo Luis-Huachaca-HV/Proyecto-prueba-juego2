@@ -117,7 +117,7 @@ def Settings():
         blin_choose.set_colorkey(WHITE)
         pantalla.blit(pac_choose,[120,120])
         pantalla.blit(blin_choose,[500,120])
-        Palabra=["PLAYER","ENEMY"]
+        Palabra=["P V P","P V IA"]
         PosicionInicial=[(150,400),(540,400)];#/1.5,-(TamanoFuente/2.8)        
         for e in range(2):
             a = Boton(imagenboton,(PosicionInicial[e][0]-(TamanoFuente),PosicionInicial[e][1]-(TamanoFuente/2.6)),pantalla)

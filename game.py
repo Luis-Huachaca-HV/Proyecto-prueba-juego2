@@ -413,10 +413,15 @@ def main():
             elif f == 2:
                 fase = 0
         elif fase == DODGE:
-            running = game.process_events()
-            game.run_logic()
-            game.display_frame(screen)
-            clock.tick(9)
+            if f == 0:
+                running = game.process_events()
+                game.run_logic()
+                game.display_frame(screen)
+                clock.tick(9)
+            elif f == 1:
+                #acá ejecutara la clase juego de el p vs IA
+                pass
+
 
             # pseudo_clasejuego()
             # aca ejecutara el juego
