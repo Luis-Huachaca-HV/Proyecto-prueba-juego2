@@ -17,6 +17,7 @@ sound2 = pygame.mixer.Sound("audio_trote.ogg")
 sound3 = pygame.mixer.Sound("audio_trote.ogg")
 sound4 = pygame.mixer.Sound("audio_estadio.ogg")
 sound5 = pygame.mixer.Sound("grito_golpe.ogg")
+sound6 = pygame.mixer.Sound("grito_muerte.wav")
 
 #----------ARREGLO DE IMÁGENES-DERECHA------------------#
 image_EN1 = pygame.image.load("img/enemy_1.png").convert()
@@ -279,22 +280,22 @@ class Game(object):
             self.pelota.rect.y = -100
             self.enemy.vida -= 5
             if self.enemy.vida == 0:
-                
+                sound6.play()
                 print("He muerto:C")
                #self.enemy.image = pygame.image.load("img/enemy_5.png")
             print(self.enemy.vida)
             sound5.play()
-
         if colision(self.pelo_enemy.rect.x, self.pelo_enemy.rect.y, self.player.rect.x, self.player.rect.y) == True:
             self.pelo_enemy.rect.x = -1000
             self.pelo_enemy.rect.y = -100
             self.player.vida -= 5
             if self.player.vida == 0:
-                
+                sound6.play()
                 print("He muerto:C")
                #self.enemy.image = pygame.image.load("img/enemy_5.png")
             print(self.player.vida)
             sound5.play()
+            
         '''hits = pygame.sprite.spritecollide(Player, Pelota, True)'''
 
         '''if hits:
