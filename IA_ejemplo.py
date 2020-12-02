@@ -224,8 +224,8 @@ meteor_list = pygame.sprite.Group()
 pelota_enemy_list = pygame.sprite.Group()                                              #       <----------------     Lista de pelotas enemigo
 pelota_player_list = pygame.sprite.Group()                                             #       <----------------     Lista de pelotas jugador
 
-enemigo1 = enemy(1)
 player = Player()
+enemigo1 = enemy(1)
 all_sprite_list.add(enemigo1)
 all_sprite_list.add(player)
 
@@ -263,9 +263,10 @@ while nivel1:
                 player.changespeed(-3,0)
             if event.key == pygame.K_RIGHT:
                 player.changespeed(0,-3)
-    enemigo1.porcentaje()                                                       
+    if variable == x:
+      enemigo1.porcentaje()                                                       
     all_sprite_list.update()
-
+    
     pygame.sprite.groupcollide(pelota_enemy_list,pelota_player_list,True,True)               
     
 
@@ -392,7 +393,7 @@ while nivel2:
     screen.blit(fondo,[0,0])
     all_sprite_list.draw(screen)
     pygame.display.flip()
-    clock.tick(60)
+    cloc#k.tick(60)
 
 
 
@@ -464,3 +465,4 @@ while nivel3:
     all_sprite_list.draw(screen)
     pygame.display.flip()
     clock.tick(60)
+
