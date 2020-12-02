@@ -563,7 +563,7 @@ class Game(object):
                     #sleep(2)
 
             #sound5.play()
-            
+        #ga
         #añadir colisiones
         while self.nivel1:
             tecla1 = pygame.key.get_pressed()
