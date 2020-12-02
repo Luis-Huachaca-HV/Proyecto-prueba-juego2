@@ -185,6 +185,89 @@ class Enemy_sin_IA(pygame.sprite.Sprite):
         self.rect.x += self.speed_x
 
 
+class enemy(pygame.sprite.Sprite):
+    def __init__(self,lvl,lives=0):
+        super().__init__()
+        self.lvl = lvl
+        self.lives = lives
+        self.image = pygame.image.load("enemigo_1.png").convert()
+        self.image.set_colorkey((255,255,255))
+        self.rect = self.image.get_rect()
+        self.rect.x = 363 + (215)
+        self.rect.y = 198 + (100)
+        self.x_objetivo = 578                             
+        self.y_objetivo = 298
+
+        Level_names =[["BOT Harry","BOT Ron","BOT Hermione"],["BOT Luke","BOT Leia","BOT Solo"],["BOT Ayrton","BOT Cesar","BOT Luis","BOT Rafael"]]
+
+        if self.lvl == 1:
+            self.name = Level_names[0][random.randint(0,2)]
+            self.lvl_alias = "Fácil"
+            self.lives = 5
+            self.pct_throw = 15
+            self.pct_move = 300
+            self.pct_none = 100
+        elif self.lvl == 2:
+            self.name = Level_names[1][random.randint(0,2)]
+            self.lvl_alias = "Normal"
+            self.lives = 10
+            self.pct_throw = 25
+            self.pct_move = 500
+            self.pct_none = 100
+        elif self.lvl == 3:
+            self.name = Level_names[2][random.randint(0,3)]
+            self.lvl_alias = "Difícil"
+            self.lives = 15
+            self.pct_throw = 45
+            self.pct_move = 800
+            self.pct_none = 100
+
+    def __del__(self):
+        del self.image
+        del self.rect
+        
+
+    def move1(self):                                                                                        #       <----------------     Función MOVERSE
+        validacion_x = self.rect.x >= self.x_objetivo - 8 and self.rect.x  <= self.x_objetivo + 8
+        validacion_y = self.rect.y >= self.y_objetivo - 8 and self.rect.y  <= self.y_objetivo + 8
+        if(validacion_x and validacion_y):
+            self.x_objetivo = random.randint(440,615)
+            self.y_objetivo = random.randint(210,390)
+        else:
+            # X izquierda
+            if (self.x_objetivo < self.rect.x):
+                self.rect.x -= 6 
+                # X aderecha
+            if (self.x_objetivo > self.rect.x):
+                self.rect.x += 6 
+                # Y arriba 
+            if (self.y_objetivo > self.rect.y):
+                self.rect.y += 6 
+                # Y abajo 
+            if (self.y_objetivo < self.rect.y):
+                self.rect.y -= 6 
+
+
+    def atak(self):
+        pelota_enemigo = Pelota2()
+        pelota_enemigo.rect.x = self.rect.x - 10
+        pelota_enemigo.rect.y = self.rect.y + 20
+        pelota_enemy_list.add(pelota_enemigo)
+        all_sprite_list.add(pelota_enemigo)
+        
+    def damage(self):
+        self.lives -= 1
+        
+
+    def porcentaje(self):
+        self.pct = random.randint(14,1000)
+        if self.pct <= self.pct_throw:
+            self.atak()
+        
+        else:
+            self.move1()
+
+
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
@@ -263,18 +346,54 @@ class Player(pygame.sprite.Sprite):
 
 class Game(object):
     def __init__(self):
-        self.pelota = Pelota()
+        
         self.player = Player()
-        self.pelo_enemy = Pelota()
+        
         self.enemy = Enemy_sin_IA()
         self.all_sprites_list = pygame.sprite.Group()
         self.all_sprites_list.add(self.player)
         self.all_sprites_list.add(self.enemy)
         self.my_players = pygame.sprite.Group(self.enemy)
-        self.pelota_list = pygame.sprite.Group(self.pelota)
+        self.pelota_player_list = pygame.sprite.Group()
+        self.pelota_enemy_list = pygame.sprite.Group()   
 
     def process_events(self):
         pygame.init()
+        #--------CHOQUES CON COLLIDE---------------#
+        pygame.sprite.groupcollide(self.pelota_enemy_list,self.pelota_player_list,True,True)
+        for pelota in self.pelota_player_list:                             
+            if pelota.rect.x >= 844:
+                self.pelota_player_list.remove(pelota)
+
+        for pelota in self.pelota_enemy_list:                         
+            if pelota.rect.x <= -80: #COLLISION 
+                self.pelota_enemy_list.remove(pelota)
+
+        if pygame.sprite.spritecollide(self.player, self.pelota_enemy_list, True, collided = None):
+            #player.damage()
+            self.player.vida -= 1
+            if self.player.vida == 0:
+                pass
+                #sound6.play()
+                #print("He muerto:C")
+                #self.enemy.image = pygame.image.load("img/enemy_5.png")
+            #print(self.player.vida)
+            #sound5.play()
+
+        if pygame.sprite.spritecollide(self.enemy, self.pelota_player_list, True, collided = None):
+            #enemigo1.damage()
+            self.enemy.vida -= 1
+            if self.enemy.vida == 0:
+                pass
+                #sound6.play()
+                #print("He muerto:C")
+                #self.enemy.image = pygame.image.load("img/enemy_5.png")
+            #print(self.enemy.vida)
+            #sound5.play()
+            
+
+
+        '''
         if colision(self.pelota.rect.x, self.pelota.rect.y, self.enemy.rect.x, self.enemy.rect.y) == True:
             self.pelota.rect.x = -1000
             self.pelota.rect.y = -100
@@ -294,7 +413,7 @@ class Game(object):
                 print("He muerto:C")
                #self.enemy.image = pygame.image.load("img/enemy_5.png")
             print(self.player.vida)
-            sound5.play()
+            sound5.play()'''
             
         '''hits = pygame.sprite.spritecollide(Player, Pelota, True)'''
 
@@ -327,22 +446,28 @@ class Game(object):
                 if event.key == pygame.K_RIGHT:
                     self.enemy.changespeed(0, 6)
                 if event.key == pygame.K_c:
-                    self.pelota.lanzador = "player"
-                    self.pelota.rect.x = self.player.rect.x + 10
-                    self.pelota.rect.y = self.player.rect.y - 20
-                    # clock = pygame.time.Clock()
+                    if(len(self.pelota_player_list) <= 3):
+                        pelota = Pelota()
+                        pelota.lanzador = "player"
+                        pelota.rect.x = self.player.rect.x + 10
+                        pelota.rect.y = self.player.rect.y - 20
+                        self.all_sprites_list.add(pelota)
+                        self.pelota_player_list.add(pelota)
+                        # clock = pygame.time.Clock()
 
-                    self.all_sprites_list.add(self.pelota)
-                    self.pelota_list.add(self.pelota)
-                    # self.pelota.pelo_clock.tick(13)
+                        #self.pelota_list.add(self.pelota)
+                        # self.pelota.pelo_clock.tick(13)
 
                 if event.key == pygame.K_m:
-                    self.pelo_enemy.lanzador = "enemy"
-                    self.pelo_enemy.rect.x = self.enemy.rect.x + 10
-                    self.pelo_enemy.rect.y = self.enemy.rect.y - 20
-                    self.all_sprites_list.add(self.pelo_enemy)
-                    self.pelota_list.add(self.pelo_enemy)
-                    # self.pelo_enemy.pelo_clock.tick(13)
+                    if(len(self.pelota_enemy_list) <= 3):
+                        pelo_enemy = Pelota()
+                        pelo_enemy.lanzador = "enemy"
+                        pelo_enemy.rect.x = self.enemy.rect.x + 10
+                        pelo_enemy.rect.y = self.enemy.rect.y - 20
+                        self.all_sprites_list.add(pelo_enemy)
+                        self.pelota_enemy_list.add(pelo_enemy)
+                        #self.pelota_list.add(self.pelo_enemy)
+                        # self.pelo_enemy.pelo_clock.tick(13)
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_w:
                     self.player.changespeed(6, 0)
