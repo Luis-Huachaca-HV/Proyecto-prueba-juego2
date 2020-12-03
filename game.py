@@ -189,18 +189,16 @@ class enemy(pygame.sprite.Sprite):
     def __init__(self,lvl,vida=0):
         super().__init__()
         self.lvl = lvl
-        self.vida = vida
-        '''
+        self.vida = vida      
         self.images = []
         self.image = imageN[1][0]
         self.image.set_colorkey(Black)
         self.images.append(self.image)
-        '''
-        self.image = pygame.image.load("img/enemy_1.png")
+        #self.image = pygame.image.load("img/enemy_1.png")
         self.rect = self.image.get_rect()
         self.index = 0
         self.lanzo = False
-        #self.imagen = self.images[self.index]
+        self.imagen = self.images[self.index]
         self.rect.x = 363 + (215)
         self.rect.y = 198 + (100)
         self.x_objetivo = 578                             
@@ -245,39 +243,43 @@ class enemy(pygame.sprite.Sprite):
                 # X izquierda
             if (self.x_objetivo < self.rect.x):
                 self.rect.x -= 6 
-                #self.image = imageN[1][0]
-                #self.images = imageN[1]
-                #self.image.set_colorkey(Black)
+                self.image = imageN[1][0]
+                self.images = imageN[1]
+                self.image.set_colorkey(Black)
                 #sound3.play()
                 # X aderecha
             if (self.x_objetivo > self.rect.x):
                 self.rect.x += 6
-                #self.image = imageN[1][0]
-                #self.images = imageN[1]
-                #self.image.set_colorkey(Black)
+                self.image = imageN[1][0]
+                self.images = imageN[1]
+                self.image.set_colorkey(Black)
                 #sound3.play() 
                 # Y arriba 
             if (self.y_objetivo > self.rect.y):
                 self.rect.y += 6
-                #self.image = imageN[1][0]
-                #self.images = imageN[1]
-                #self.image.set_colorkey(Black)
+                self.image = imageN[1][0]
+                self.images = imageN[1]
+                self.image.set_colorkey(Black)
                 #sound3.play()
                 # Y abajo 
             if (self.y_objetivo < self.rect.y):
                 self.rect.y -= 6
-                #self.image = imageN[1][0]
-                #self.images = imageN[1]
-                #self.image.set_colorkey(Black)
+                self.image = imageN[1][0]
+                self.images = imageN[1]
+                self.image.set_colorkey(Black)
                 #sound3.play() 
+
+        if self.index >= len(self.images):
+            self.index = 0
+        self.image = self.images[self.index]
+        self.image.set_colorkey(Black)
+        self.index += 1
 
 
     def atak(self):
-        '''
         self.image = imageN[1][0]
         self.images = imageL[1]
         self.image.set_colorkey(Black)
-        '''
         pelota_enemigo = Pelota()
         pelota_enemigo.lanzador = "enemy"
         pelota_enemigo.rect.x = self.rect.x - 10
@@ -393,20 +395,13 @@ class Game(object):
         self.nivel1 = True
         self.nivel2 = False
         self.nivel3 = False
-        self.all_sprites_list.add(self.enemigo1)
-        #if proceso == "pvp":
-        #    self.all_sprites_list.add(self.enemy)
-        #elif proceso == "pvia":
-        #    if self.nivel1 ==  True:
-                #self.enemigo1.porcentaje()        
-        #    '''elif self.nivel2 == True:
-        #        #self.enemigo2.porcentaje()        
-        #        self.all_sprites_list.add(self.enemigo2)
-        #    elif self.nivel3 == True:
-        #        self.all_sprites_list.add(self.enemigo3)
-        #        #self.enemigo3.porcentaje()    '''
-
+        
+        
     def process_events(self):
+        if self.proceso == "pvia":
+            self.all_sprites_list.add(self.enemigo1)
+        if self.proceso == "pvp":
+            self.all_sprites_list.add(self.enemy)
         pygame.init()
         
         #--------CHOQUES CON COLLIDE---------------#
@@ -507,6 +502,10 @@ class Game(object):
         return False
         
     def process_events2(self):
+        if self.proceso == "pvia":
+            self.all_sprites_list.add(self.enemigo1)
+        if self.proceso == "pvp":
+            self.all_sprites_list.add(self.enemy)
         pygame.init()
         #--------CHOQUES CON COLLIDE---------------#
         #choque entre pelota1 y pelota2
@@ -536,6 +535,7 @@ class Game(object):
             #enemigo1.damage()
             self.enemigo1.vida -= 1
             if self.enemigo1.vida == 0:
+                self.images = pygame.image.load("img/enemy_5.png")
                 if self.nivel1 == True:
                     self.all_sprites_list.remove(self.enemigo1)
                     del self.enemigo1
@@ -601,11 +601,12 @@ class Game(object):
         #    self.enemigo1.lanzo = False 
                 
         self.enemigo1.porcentaje()         
+        
         return False    
 
     
     def run_logic(self):
-
+        #print(proceso)
         self.all_sprites_list.update()
         
 
@@ -624,8 +625,8 @@ class Game(object):
             self.all_sprites_list.draw(screen)
             pygame.display.flip()
         pygame.display.flip()
-proceso = "pvp"
-game = Game()
+
+#proceso = "pvia"
 def main():
     pygame.init()
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -638,6 +639,7 @@ def main():
     DODGE = 3
     running = False
     #game = Game()
+    game.proceso = "pvp"
     while not running:
         pygame.display.flip()
         if fase == menu:
@@ -660,32 +662,36 @@ def main():
             Settings()
             f = Settings()
             if f == 0:
+                game.proceso = "pvp"
                 fase = 0
             elif f == 1:
+                game.proceso = "pvia"
                 fase = 0
             elif f == 2:
                 fase = 0
         elif fase == DODGE:
-            if f == 0:
-                proceso = "pvp"
-                running = game.process_events2()
+            
+            if game.proceso == "pvp":
+                running = game.process_events()
                 game.run_logic()
                 game.display_frame(screen)
                 clock.tick(9)
+                #print(proceso)
                 '''proceso = "pvp"
                 running = game.process_events()
                 game.run_logic()
                 game.display_frame(screen)
                 
                 clock.tick(9)'''
-            elif f == 1:
-                proceso = "pvp"
+            elif game.proceso == "pvia":
                 running = game.process_events2()
                 game.run_logic()
                 game.display_frame(screen)
                 clock.tick(9)
+                #print(proceso)
                 #runnig = game.process_events()
                 #acá ejecutara la clase juego de el p vs IA
+
                 
 
 
@@ -697,6 +703,7 @@ def main():
             # clock.tick(10)
 
     pygame.quit()
+game = Game()
 
 if __name__ == "__main__":
     main()
