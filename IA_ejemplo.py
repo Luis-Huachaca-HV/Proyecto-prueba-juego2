@@ -4,7 +4,7 @@ from time import sleep
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load("player.1.png").convert()
+        self.image = pygame.image.load("img/player_1.png").convert()
         self.image.set_colorkey((255,255,255))
         self.rect = self.image.get_rect()
         self.lives = 10
@@ -49,7 +49,7 @@ class Player(pygame.sprite.Sprite):
 class Pelota(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load("pelota_2.png").convert()
+        self.image = pygame.image.load("img/pelota_2.png").convert()
         self.image.set_colorkey((0,0,0))
         self.rect = self.image.get_rect()
 
@@ -63,7 +63,7 @@ class Pelota(pygame.sprite.Sprite):
 class Pelota2(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load("pelota_2.png").convert()
+        self.image = pygame.image.load("img/pelota_2.png").convert()
         self.image.set_colorkey((0,0,0))
         self.rect = self.image.get_rect()
 
@@ -79,7 +79,7 @@ class enemy(pygame.sprite.Sprite):
       super().__init__()
       self.lvl = lvl
       self.lives = lives
-      self.image = pygame.image.load("enemigo_1.png").convert()
+      self.image = pygame.image.load("img/enemy_1.png").convert()
       self.image.set_colorkey((255,255,255))
       self.rect = self.image.get_rect()
       self.rect.x = 363 + (215)
@@ -212,7 +212,7 @@ def next_lvl():
 
 pygame.init()
 screen = pygame.display.set_mode([844,508])
-fondo = pygame.image.load("fondo.png").convert()
+fondo = pygame.image.load("img/fondo_final.png").convert()
 clock = pygame.time.Clock()
 nivel1 = True
 nivel2 = False
@@ -263,8 +263,8 @@ while nivel1:
                 player.changespeed(-3,0)
             if event.key == pygame.K_RIGHT:
                 player.changespeed(0,-3)
-    if variable == x:
-      enemigo1.porcentaje()                                                       
+    
+    enemigo1.porcentaje()                                                       
     all_sprite_list.update()
     
     pygame.sprite.groupcollide(pelota_enemy_list,pelota_player_list,True,True)               
@@ -393,7 +393,7 @@ while nivel2:
     screen.blit(fondo,[0,0])
     all_sprite_list.draw(screen)
     pygame.display.flip()
-    cloc#k.tick(60)
+    clock.tick(60)
 
 
 
