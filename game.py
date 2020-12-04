@@ -1,7 +1,7 @@
 import pygame
 import random
 import menu
-import math
+
 from menu import Menu, Creditos, Settings
 WIDTH = 844
 HEIGHT = 508
@@ -34,15 +34,8 @@ imagePN = [image_PN1, image_PN2, image_PN3]
 
 
 imageN = [imagePN, imageEN]  # encima de esta lina pon los sprites del enemy
-'''
-# ---------------sprites izquierda----------------------
-image_PI1 = pygame.image.load("img/player_7.png").convert()
-image_PI2 = pygame.image.load("img/player_6.png").convert()
-image_PI3 = pygame.image.load("img/player_1.png").convert()
-imagePI = [image_PI1,image_PI2,image_PI3]
 
-imageI = [image_PI, image_EI] #encima de esta lina pon los sprites del enemy
-'''
+
 # ---------------sprites lanzar player----------------------
 image_PL1 = pygame.image.load("img/player_3.png").convert()
 image_PL2 = pygame.image.load("img/player_4.png").convert()
@@ -68,28 +61,17 @@ pel_6 = pygame.image.load("img/pelota_6.png").convert()
 l_pel = [pel_1, pel_2, pel_3]
 
 
-def colision(px, py, ex, ey,):
-    '''px = self.player.rect.x
-    py = self.player.rect.y
-    ex = self.enemy.rect.x
-    ey = self.enemy.rect.y'''
-    b = math.sqrt(((ex-px)**2)+((ey-py)**2))
-    if b < 27:
-        return True
-    else:
-        return False
 
 
 class Pelota(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        # self.images = []
+        
         self.image = l_pel[0]
         self.image.set_colorkey(Verde)
-        # self.image.append()
+        
         self.index = 0
-       # self.pelo_clock = pygame.time.Clock()
-        # se
+
         self.rect = self.image.get_rect()
         self.lanzador = ""
 
@@ -128,7 +110,7 @@ class Enemy_sin_IA(pygame.sprite.Sprite):
         self.speed_x += x
 
     def update(self):
-        # print(self.rect.x,self.rect.y)
+        
         tecla = pygame.key.get_pressed()
         if tecla[pygame.K_RIGHT]:
             self.image = imageN[1][0]
@@ -180,7 +162,7 @@ class Enemy_sin_IA(pygame.sprite.Sprite):
             self.rect.x = 745
         if self.rect.x < 424:
             self.rect.x = 424
-        # if self.rect.
+        
         self.rect.y += self.speed_y
         self.rect.x += self.speed_x
 
@@ -194,7 +176,7 @@ class enemy(pygame.sprite.Sprite):
         self.image = imageN[1][0]
         self.image.set_colorkey(Black)
         self.images.append(self.image)
-        #self.image = pygame.image.load("img/enemy_1.png")
+        
         self.rect = self.image.get_rect()
         self.index = 0
         self.lanzo = False
@@ -205,28 +187,25 @@ class enemy(pygame.sprite.Sprite):
         self.y_objetivo = 298
 
         Level_names =[["BOT Harry","BOT Ron","BOT Hermione"],["BOT Luke","BOT Leia","BOT Solo"],["BOT Ayrton","BOT Cesar","BOT Luis","BOT Rafael"]]
-
+        # enemigo1 = enemy(1)
         if self.lvl == 1:
             self.name = Level_names[0][random.randint(0,2)]
             self.lvl_alias = "Fácil"
             self.vida = 5
             self.pct_throw = 15
             self.pct_move = 300
-            self.pct_none = 100
         elif self.lvl == 2:
             self.name = Level_names[1][random.randint(0,2)]
             self.lvl_alias = "Normal"
             self.vida = 10
             self.pct_throw = 55
             self.pct_move = 500
-            self.pct_none = 100
         elif self.lvl == 3:
             self.name = Level_names[2][random.randint(0,3)]
             self.lvl_alias = "Difícil"
             self.vida = 15
             self.pct_throw = 105
             self.pct_move = 800
-            self.pct_none = 100
 
     def __del__(self):
         del self.image
@@ -236,7 +215,7 @@ class enemy(pygame.sprite.Sprite):
     def move1(self):                                                                                        #       <----------------     Función MOVERSE
         validacion_x = self.rect.x >= self.x_objetivo - 8 and self.rect.x  <= self.x_objetivo + 8
         validacion_y = self.rect.y >= self.y_objetivo - 8 and self.rect.y  <= self.y_objetivo + 8
-        if(validacion_x and validacion_y):
+        if(validacion_x and validacion_y):  
             self.x_objetivo = random.randint(440,615)
             self.y_objetivo = random.randint(210,390)
         else:
@@ -296,7 +275,7 @@ class enemy(pygame.sprite.Sprite):
         if self.pct <= self.pct_throw:
             self.lanzo  = True
             self.atak()
-            #self.lanzo  = False
+            
         else:
             self.move1()
 
@@ -382,11 +361,9 @@ class Game(object):
     def __init__(self):
         
         self.player = Player()
-        self.game_over = False
         self.enemy = Enemy_sin_IA()
         self.enemigo1 = enemy(1)   
-        #self.enemigo2 = enemy(2)
-        #self.enemigo3 = enemy(3)
+        self.game_over = False
         self.all_sprites_list = pygame.sprite.Group()
         self.all_sprites_list.add(self.player)
         self.my_players = pygame.sprite.Group(self.enemy)
@@ -406,6 +383,7 @@ class Game(object):
         
         #--------CHOQUES CON COLLIDE---------------#
         pygame.sprite.groupcollide(self.pelota_enemy_list,self.pelota_player_list,True,True)
+
         for pelota in self.pelota_player_list:                             
             if pelota.rect.x >= 844:
                 self.pelota_player_list.remove(pelota)
@@ -415,20 +393,21 @@ class Game(object):
                 self.pelota_enemy_list.remove(pelota)
 
         if pygame.sprite.spritecollide(self.player, self.pelota_enemy_list, True, collided = None):
-            #player.damage()
+            
             self.player.vida -= 1
             if self.player.vida == 0:
-                self.game_over = True
+                #self.game_over = True
+                main()
 
                 #sound6.play()
             #sound5.play()
 
         if pygame.sprite.spritecollide(self.enemy, self.pelota_player_list, True, collided = None):
-            #enemigo1.damage()
+            
             self.enemy.vida -= 1
             if self.enemy.vida == 0:
-                self.game_over = True
-                
+                #self.game_over = True
+                main()
                 #sound6.play()
 
             #sound5.play()
@@ -467,10 +446,7 @@ class Game(object):
                         pelota.rect.y = self.player.rect.y - 20
                         self.all_sprites_list.add(pelota)
                         self.pelota_player_list.add(pelota)
-                        # clock = pygame.time.Clock()
-
-                        #self.pelota_list.add(self.pelota)
-                        # self.pelota.pelo_clock.tick(13)
+                       
 
                 if event.key == pygame.K_m:
                     if(len(self.pelota_enemy_list) <= 3):
@@ -480,8 +456,7 @@ class Game(object):
                         pelo_enemy.rect.y = self.enemy.rect.y - 20
                         self.all_sprites_list.add(pelo_enemy)
                         self.pelota_enemy_list.add(pelo_enemy)
-                        #self.pelota_list.add(self.pelo_enemy)
-                        # self.pelo_enemy.pelo_clock.tick(13)
+                        
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_w:
                     self.player.changespeed(6, 0)
@@ -520,7 +495,7 @@ class Game(object):
                 self.pelota_enemy_list.remove(pelota)
 
         if pygame.sprite.spritecollide(self.player, self.pelota_enemy_list, True, collided = None):
-            #player.damage()
+            
             self.player.vida -= 1
             if self.player.vida == 0:
                 # función GAME OVER
@@ -532,10 +507,10 @@ class Game(object):
 
        
         if pygame.sprite.spritecollide(self.enemigo1, self.pelota_player_list, True, collided = None):
-            #enemigo1.damage()
+            
             self.enemigo1.vida -= 1
             if self.enemigo1.vida == 0:
-                self.images = pygame.image.load("img/enemy_5.png")
+                self.enemigo1.image = pygame.image.load("img/enemy_5.png")
                 if self.nivel1 == True:
                     self.all_sprites_list.remove(self.enemigo1)
                     del self.enemigo1
@@ -580,10 +555,6 @@ class Game(object):
                         pelota.rect.y = self.player.rect.y - 20
                         self.all_sprites_list.add(pelota)
                         self.pelota_player_list.add(pelota)
-                        # clock = pygame.time.Clock()
-
-                        #self.pelota_list.add(self.pelota)
-                        # self.pelota.pelo_clock.tick(13)
 
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_w:
@@ -594,19 +565,13 @@ class Game(object):
                     self.player.changespeed(-6, 0)
                 if event.key == pygame.K_d:
                     self.player.changespeed(0, -6)
-                    
-        #if self.enemigo1.lanzo == True:
-            #self.pelota_enemy_list.add(pelota_enemigo1)
-            #self.all_sprite_list.add(pelota_enemigo1)
-        #    self.enemigo1.lanzo = False 
-                
+                              
         self.enemigo1.porcentaje()         
         
         return False    
 
     
     def run_logic(self):
-        #print(proceso)
         self.all_sprites_list.update()
         
 
@@ -676,31 +641,13 @@ def main():
                 game.run_logic()
                 game.display_frame(screen)
                 clock.tick(9)
-                #print(proceso)
-                '''proceso = "pvp"
-                running = game.process_events()
-                game.run_logic()
-                game.display_frame(screen)
-                
-                clock.tick(9)'''
+        
             elif game.proceso == "pvia":
                 running = game.process_events2()
                 game.run_logic()
                 game.display_frame(screen)
                 clock.tick(9)
-                #print(proceso)
-                #runnig = game.process_events()
-                #acá ejecutara la clase juego de el p vs IA
-
                 
-
-
-            # pseudo_clasejuego()
-            # aca ejecutara el juego
-            # running = game.process_events()
-            # game.run_logic()
-            # game.display_frame(screen)
-            # clock.tick(10)
 
     pygame.quit()
 game = Game()
