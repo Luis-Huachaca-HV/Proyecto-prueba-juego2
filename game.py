@@ -1,6 +1,7 @@
 import pygame
 import random
 import menu
+#from Dodgeball_introIMG import *
 
 from menu import Menu, Creditos, Settings
 WIDTH = 844
@@ -10,6 +11,33 @@ White = (255, 255, 255)
 Verde = (0, 255, 0)
 clock = pygame.time.Clock()
 pygame.display.set_mode()
+
+#------------------ANIMACIÓN INTRO-----------------------#
+def intro1_anim():
+    for i in intro_list:
+        screen.blit(i, [0,0])
+        time.sleep(0.08)
+        pygame.display.update() 
+def intro2_anim():
+    for i in intro_list2:
+        screen.blit(i, [0,0])
+        time.sleep(0.1)
+        pygame.display.update() 
+def music_intro():
+    pygame.mixer.music.load("Music/intro2.mp3")
+    pygame.mixer.music.play(0)
+def unload_music():
+    pygame.mixer.music.stop()
+def fadeout_screen(width, height): 
+    fade = pygame.Surface((width, height))
+    fade.fill((0,0,0))
+    for alpha in range(0, 300):
+        fade.set_alpha(alpha)
+        #redrawWindow()
+        screen.blit(fade, (0,0))
+        pygame.display.update()
+        pygame.time.delay(10)
+
 
 pygame.mixer.init()
 sound = pygame.mixer.Sound("audio_trote.ogg")
@@ -375,11 +403,11 @@ class Game(object):
         
         
     def process_events(self):
+        pygame.init()
         if self.proceso == "pvia":
             self.all_sprites_list.add(self.enemigo1)
         if self.proceso == "pvp":
             self.all_sprites_list.add(self.enemy)
-        pygame.init()
         
         #--------CHOQUES CON COLLIDE---------------#
         pygame.sprite.groupcollide(self.pelota_enemy_list,self.pelota_player_list,True,True)
@@ -396,8 +424,8 @@ class Game(object):
             
             self.player.vida -= 1
             if self.player.vida == 0:
-                #self.game_over = True
-                main()
+                self.game_over = True
+                #main()
 
                 #sound6.play()
             #sound5.play()
@@ -406,13 +434,14 @@ class Game(object):
             
             self.enemy.vida -= 1
             if self.enemy.vida == 0:
-                #self.game_over = True
-                main()
+                self.game_over = True
+                #main()
+                
                 #sound6.play()
 
             #sound5.play()
             
-    
+        
         tecla1 = pygame.key.get_pressed()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -477,11 +506,11 @@ class Game(object):
         return False
         
     def process_events2(self):
+        pygame.init()
         if self.proceso == "pvia":
             self.all_sprites_list.add(self.enemigo1)
         if self.proceso == "pvp":
             self.all_sprites_list.add(self.enemy)
-        pygame.init()
         #--------CHOQUES CON COLLIDE---------------#
         #choque entre pelota1 y pelota2
         pygame.sprite.groupcollide(self.pelota_enemy_list,self.pelota_player_list,True,True)
@@ -637,12 +666,14 @@ def main():
         elif fase == DODGE:
             
             if game.proceso == "pvp":
+                #pygame.init()
                 running = game.process_events()
                 game.run_logic()
                 game.display_frame(screen)
                 clock.tick(9)
         
             elif game.proceso == "pvia":
+                #pygame.init()
                 running = game.process_events2()
                 game.run_logic()
                 game.display_frame(screen)
