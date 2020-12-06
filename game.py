@@ -144,25 +144,25 @@ class Enemy_sin_IA(pygame.sprite.Sprite):
             self.image = imageN[1][0]
             self.images = imageN[1]
             self.image.set_colorkey(Black)
-            #sound.play()
+            sound.play()
 
         elif tecla[pygame.K_LEFT]:
             self.image = imageN[1][0]
             self.images = imageN[1]
             self.image.set_colorkey(Black)
-            #sound.play()
+            sound.play()
 
         elif tecla[pygame.K_UP]:
             self.image = imageN[1][0]
             self.images = imageN[1]
             self.image.set_colorkey(Black)
-            #sound.play()
+            sound.play()
 
         elif tecla[pygame.K_DOWN]:
             self.image = imageN[1][0]
             self.images = imageN[1]
             self.image.set_colorkey(Black)
-            #sound.play()
+            sound.play()
 
         elif tecla[pygame.K_m]:
             self.image = imageN[1][0]
@@ -215,7 +215,7 @@ class enemy(pygame.sprite.Sprite):
         self.y_objetivo = 298
 
         Level_names =[["BOT Harry","BOT Ron","BOT Hermione"],["BOT Luke","BOT Leia","BOT Solo"],["BOT Ayrton","BOT Cesar","BOT Luis","BOT Rafael"]]
-        # enemigo1 = enemy(1)
+        
         if self.lvl == 1:
             self.name = Level_names[0][random.randint(0,2)]
             self.lvl_alias = "Fácil"
@@ -253,28 +253,28 @@ class enemy(pygame.sprite.Sprite):
                 self.image = imageN[1][0]
                 self.images = imageN[1]
                 self.image.set_colorkey(Black)
-                #sound3.play()
+                sound3.play()
                 # X aderecha
             if (self.x_objetivo > self.rect.x):
                 self.rect.x += 6
                 self.image = imageN[1][0]
                 self.images = imageN[1]
                 self.image.set_colorkey(Black)
-                #sound3.play() 
+                sound3.play() 
                 # Y arriba 
             if (self.y_objetivo > self.rect.y):
                 self.rect.y += 6
                 self.image = imageN[1][0]
                 self.images = imageN[1]
                 self.image.set_colorkey(Black)
-                #sound3.play()
+                sound3.play()
                 # Y abajo 
             if (self.y_objetivo < self.rect.y):
                 self.rect.y -= 6
                 self.image = imageN[1][0]
                 self.images = imageN[1]
                 self.image.set_colorkey(Black)
-                #sound3.play() 
+                sound3.play() 
 
         if self.index >= len(self.images):
             self.index = 0
@@ -331,25 +331,25 @@ class Player(pygame.sprite.Sprite):
             self.image = imageN[0][0]
             self.images = imageN[0]
             self.image.set_colorkey(Black)
-            #sound2.play()
+            sound2.play()
 
         elif tecla[pygame.K_a]:
             self.image = imageN[0][0]
             self.images = imageN[0]
             self.image.set_colorkey(Black)
-            #sound2.play()
+            sound2.play()
 
         elif tecla[pygame.K_w]:
             self.image = imageN[0][0]
             self.images = imageN[0]
             self.image.set_colorkey(Black)
-            #sound2.play()
+            sound2.play()
 
         elif tecla[pygame.K_s]:
             self.image = imageN[0][0]
             self.images = imageN[0]
             self.image.set_colorkey(Black)
-            #sound2.play()
+            sound2.play()
 
         elif tecla[pygame.K_c]:
             self.image = imageN[0][0]
@@ -427,19 +427,19 @@ class Game(object):
                 self.game_over = True
                 #main()
 
-                #sound6.play()
-            #sound5.play()
+                sound6.play()
+            sound5.play()
 
         if pygame.sprite.spritecollide(self.enemy, self.pelota_player_list, True, collided = None):
             
             self.enemy.vida -= 1
             if self.enemy.vida == 0:
                 self.game_over = True
-                #main()
                 
-                #sound6.play()
+                
+                sound6.play()
 
-            #sound5.play()
+            sound5.play()
             
         
         tecla1 = pygame.key.get_pressed()
@@ -531,8 +531,8 @@ class Game(object):
                 self.nivel1 = False
                 self.game_over = True
                 
-                #sound6.play()
-            #sound5.play()
+                sound6.play()
+            sound5.play()
 
        
         if pygame.sprite.spritecollide(self.enemigo1, self.pelota_player_list, True, collided = None):
@@ -547,6 +547,8 @@ class Game(object):
                     self.nivel2 = True
                     self.enemigo1 = enemy(2)
                     self.all_sprites_list.add(self.enemigo1)
+                    sound6.play()
+                    
                 elif self.nivel2 == True:
                     self.all_sprites_list.remove(self.enemigo1)
                     del self.enemigo1
@@ -554,10 +556,12 @@ class Game(object):
                     self.nivel3 = True
                     self.enemigo1 = enemy(3)
                     self.all_sprites_list.add(self.enemigo1)
+                    sound6.play()
                 elif self.nivel3 == True:
                     self.nivel3 = False
                     self.game_over = True  #corregir la eliminación de enemigo
-                        
+                    sound6.play()
+            sound5.play()           
                     
         tecla1 = pygame.key.get_pressed()
         for event in pygame.event.get():
@@ -632,7 +636,7 @@ def main():
     settings = 2
     DODGE = 3
     running = False
-    #game = Game()
+
     game.proceso = "pvp"
     while not running:
         pygame.display.flip()
@@ -641,7 +645,7 @@ def main():
             if f == 0:
                 fase = 3
                 pygame.mixer.music.set_volume(0)
-                #sound4.play(3)
+                sound4.play(3)
             elif f == 1:
                 fase = 1
             elif f == 2:
@@ -666,14 +670,14 @@ def main():
         elif fase == DODGE:
             
             if game.proceso == "pvp":
-                #pygame.init()
+                
                 running = game.process_events()
                 game.run_logic()
                 game.display_frame(screen)
                 clock.tick(9)
         
             elif game.proceso == "pvia":
-                #pygame.init()
+                
                 running = game.process_events2()
                 game.run_logic()
                 game.display_frame(screen)
